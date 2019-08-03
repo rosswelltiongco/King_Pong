@@ -11,9 +11,9 @@ positive=0
 negative=0
 y=0
 
+   
 
-
-GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BOARD)   
 GPIO.setup(out1,GPIO.OUT)
 GPIO.setup(out2,GPIO.OUT)
 GPIO.setup(out3,GPIO.OUT)
