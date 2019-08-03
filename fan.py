@@ -7,7 +7,9 @@ wiringpi.wiringPiSetupGpio()
 
 wiringpi.pinMode(18, 2)      # pwm only works on GPIO port 18  
 
-wiringpi.pwmSetClock(6)  # this parameters correspond to 25kHz
+wiringpi.pwmSetClock(6)  # this parameters correspond to 25kHz --at what clock freq will it run the best
+# only port 18 will work with pwm 
+
 wiringpi.pwmSetRange(128)
 
 print("Press any key to start")
@@ -15,6 +17,8 @@ input()
 time.sleep(2)
 wiringpi.pwmWrite(18, 0)   # minimum RPM
 print("PWM: 0")
+#there needs to be an assertion of delay for the fan to be ready operating at full speed
+
 time.sleep(2)
 wiringpi.pwmWrite(18, 128)  # maximum RPM
 print("PWM: 128")
