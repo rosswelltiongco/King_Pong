@@ -21,7 +21,7 @@ print("PWM: 0")
 
 time.sleep(2)
 wiringpi.pwmWrite(18, 128)  # maximum RPM
-print("PWM: 128")
+print("PWM: 128")     
 time.sleep(3)
 print("PWM: 0")
 wiringpi.pwmWrite(18, 0)
