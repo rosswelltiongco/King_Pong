@@ -56,7 +56,7 @@ def main():
     
     GPIO.cleanup()
 
-
+# 2 dimensional array to control the time and the amount of steps to step for the motors
 def stepperMotorBase(x, dir): # 0.03 = 30 ms
     
     if (dir ==1):
@@ -77,6 +77,9 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
         GPIO.output(pin, 0)
     
     
+# Incorporate the fan into the main code running in parallel
+# insert a delay waiting for the fan at full speeds
+
 def DCfan(pwm):
     wiringpi.pwmWrite(18, 0)    # minimum RPM
     time.sleep(1)
