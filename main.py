@@ -11,7 +11,7 @@ wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
 
 wiringpi.wiringPiSetupGpio()
 
-wiringpi.pinMode(18, 2)  # pwm only works on GPIO port 18
+wiringpi.pinMode(16, 2)  # pwm only works on GPIO port 18
 
 wiringpi.pwmSetClock(6)  # this parameters correspond to 25 KHz
 wiringpi.pwmSetRange(128)
@@ -19,7 +19,7 @@ wiringpi.pwmSetRange(128)
 
 # Setup for Stepper Motor
 GPIO.setmode(GPIO.BOARD)
-control_pins = [13,11,15,12]
+control_pins = [13,11,15,12] # Pin Numbers
 
 for pin in control_pins:
     GPIO.setup(pin, GPIO.OUT)
