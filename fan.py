@@ -19,13 +19,25 @@ wiringpi.pwmWrite(18, 0)   # minimum RPM
 print("PWM: 0")
 #there needs to be an assertion of delay for the fan to be ready operating at full speed
 
-time.sleep(2)
+time.sleep(5)
+wiringpi.pwmWrite(18, 128)  # maximum RPM
+
+time.sleep(3)
+
+print("PWM: 128")     
+#time.sleep(3)
+#print("PWM: 0") 
+wiringpi.pwmWrite(18, 0)  # maximum RPM
+time.sleep(3)
+
+
+time.sleep(3)
+
 wiringpi.pwmWrite(18, 128)  # maximum RPM
 print("PWM: 128")     
-time.sleep(3)
+time.sleep(5)
 print("PWM: 0")
-wiringpi.pwmWrite(18, 0)
 
-print("Finished")
-
-
+wiringpi.pwmWrite(18, 0)  # maximum RPM
+time.sleep(3)
+print("fisnihed") 

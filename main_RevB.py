@@ -3,7 +3,7 @@
 # GPIO for Stepper Motor
 import RPi.GPIO as GPIO
 # Setup for DC Fan
-import wiringpi as wiringpi
+import wiringpi 
 import time
 
 # Setup PWM for DC Fan
@@ -11,7 +11,7 @@ wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
 
 wiringpi.wiringPiSetupGpio()
 
-wiringpi.pinMode(16, 2)  # pwm only works on GPIO port 18
+wiringpi.pinMode(18, 2)  # PWM output ONLY works on GPIO port 18
 
 wiringpi.pwmSetClock(6)  # this parameters correspond to 25 KHz
 wiringpi.pwmSetRange(128)
@@ -19,7 +19,7 @@ wiringpi.pwmSetRange(128)
 
 # Setup for Stepper Motor
 GPIO.setmode(GPIO.BOARD)
-control_pins = [13,11,15,12] # Pin Numbers
+control_pins = [7,11,13,15] 
 
 for pin in control_pins:
     GPIO.setup(pin, GPIO.OUT)
@@ -59,6 +59,8 @@ def main():
 # 2 dimensional array to control the time and the amount of steps to step for the motors
 def stepperMotorBase(x, dir): # 0.03 = 30 ms
     
+    print("Stepper Motor from Base is Turning!")
+    
     if (dir ==1):
         for i in range(x): # 90 degrees
             for halfstep in range(8):
@@ -75,17 +77,40 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
 
     for pin in control_pins:
         GPIO.output(pin, 0)
+        
+    print("Finished Stepper Motor")
     
     
 # Incorporate the fan into the main code running in parallel
 # insert a delay waiting for the fan at full speeds
 
 def DCfan(pwm):
-    wiringpi.pwmWrite(18, 0)    # minimum RPM
-    time.sleep(1)
-    wiringpi.pwmWrite(18, pwm)  # maximum RPM
-    time.sleep(1)
-          
-    wiringpi.pwmWrite(18, 0)
+    
+    print("Press any key to start")
+    input()
+    time.sleep(2)
+    wiringpi.pwmWrite(18, 0)   # minimum RPM
+    print("PWM: 0")
+    #there needs to be an assertion of delay for the fan to be ready operating at full speed
+
+    time.sleep(5)
+    wiringpi.pwmWrite(18, 128)  # maximum RPM
+
+    time.sleep(3)
+
+    print("PWM: 128")     
+    #time.sleep(3)
+    #print("PWM: 0") 
+    wiringpi.pwmWrite(18, 0)  # maximum RPM
+    time.sleep(3)
+
+    wiringpi.pwmWrite(18, 128)  # maximum RPM
+    print("PWM: 128")     
+    time.sleep(5)
+    print("PWM: 0")
+
+    wiringpi.pwmWrite(18, 0)  # maximum RPM
+    time.sleep(3)
+    print("Finished Fan")  
 
 main()

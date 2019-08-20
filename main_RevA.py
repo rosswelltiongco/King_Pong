@@ -3,7 +3,7 @@
 # GPIO for Stepper Motor
 import RPi.GPIO as GPIO
 # Setup for DC Fan
-import wiringpi as wiringpi
+import wiringpi 
 import time
 
 # Setup PWM for DC Fan
@@ -81,11 +81,33 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
 # insert a delay waiting for the fan at full speeds
 
 def DCfan(pwm):
-    wiringpi.pwmWrite(18, 0)    # minimum RPM
-    time.sleep(1)
-    wiringpi.pwmWrite(18, pwm)  # maximum RPM
-    time.sleep(1)
-          
-    wiringpi.pwmWrite(18, 0)
+    print("Press any key to start")
+    input()
+    time.sleep(2)
+    wiringpi.pwmWrite(18, 0)   # minimum RPM
+    print("PWM: 0")
+    #there needs to be an assertion of delay for the fan to be ready operating at full speed
+
+    time.sleep(5)
+    wiringpi.pwmWrite(18, 128)  # maximum RPM
+
+    time.sleep(3)
+
+    print("PWM: 128")     
+    #time.sleep(3)
+    #print("PWM: 0") 
+    wiringpi.pwmWrite(18, 0)  # maximum RPM
+    time.sleep(3)
+
+
+    time.sleep(3)
+    wiringpi.pwmWrite(18, 128)  # maximum RPM
+    print("PWM: 128")     
+    time.sleep(5)
+    print("PWM: 0")
+
+    wiringpi.pwmWrite(18, 0)  # maximum RPM
+    time.sleep(3)
+    print("fisnihed") 
 
 main()
