@@ -47,12 +47,49 @@ halfstep_reverse = [
    [1,0,0,0]
 ]
 
+#_-__-_________--___--_--_ultra sonic sensor code _______-_----__--___-__-
+
+TRIG = 16
+ECHO = 18
+
+print"Distance Measurement In Progress"
+
+GPIO.setup(TRIG,GPIO.OUT)
+GPIO.setup(ECHO,GPIO.IN)
+GPIO.output(TRIG, False)
+
+print"Waiting For Sensor To Settle"
+
+#after 5 unit time then output
+time.sleep(5)
+GPIO.output(TRIG, True)
+
+time.sleep(0.00001)
+GPIO.output(TRIG, False)
+
+while GPIO.input(ECHO)==0:
+    pulse_start = time.time()
+ 
+while GPIO.input(ECHO)==1:
+    pulse_end = time.time()
+    
+    
+pulse_duration = pulse_end - pulse_start
+distance = pulse_duration * 17150
+distance = round(distance, 2)
+
+print "Distance:" ,distance,"cm"
+
+
+
+
 def main():
     
     print "Welcome to King Pong!"
-    stepperMotorBase(16, 1)  # 90 degrees
-    DCfan(128) # max RPM
-    stepperMotorBase(16, -1) # 90 degrees other way
+    #stepperMotorBase(16, 1)  # 90 degrees
+    while (40 < distance < 50):
+        DCfan(input()) # max RPM
+    #stepperMotorBase(16, -1) # 90 degrees other way
     
     GPIO.cleanup()
 
@@ -86,31 +123,73 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
 
 def DCfan(pwm):
     
-    print("Press any key to start")
-    input()
-    time.sleep(2)
+    
+    print("Fan is turning on in 3 seconds")
+    print"3"
+    time.sleep(1)
+    print"2"
+    time.sleep(1)
+    print"1"
+    time.sleep(1)
+    
     wiringpi.pwmWrite(18, 0)   # minimum RPM
     print("PWM: 0")
     #there needs to be an assertion of delay for the fan to be ready operating at full speed
 
-    time.sleep(5)
-    wiringpi.pwmWrite(18, 128)  # maximum RPM
 
-    time.sleep(3)
-
-    print("PWM: 128")     
-    #time.sleep(3)
-    #print("PWM: 0") 
+    #100% test
+    print("PWM: 128 100% for 5") 
+    wiringpi.pwmWrite(18, 90)  # maximum RPM
+    time.sleep(10)
+    
+    print("sleep for 20")
     wiringpi.pwmWrite(18, 0)  # maximum RPM
-    time.sleep(3)
-
-    wiringpi.pwmWrite(18, 128)  # maximum RPM
-    print("PWM: 128")     
-    time.sleep(5)
-    print("PWM: 0")
-
+    time.sleep(10)
+    
+    
+   #90% test 
+    print("PWM: 115 90% for 5") 
+    wiringpi.pwmWrite(18, 90)  # maximum RPM
+    time.sleep(10)
+    
+    
+    print("sleep for 20")
     wiringpi.pwmWrite(18, 0)  # maximum RPM
-    time.sleep(3)
-    print("Finished Fan")  
+    time.sleep(10)
+    print("Finished Fan")
+    
+   #90% test 
+    print("PWM: 100 80% for 5") 
+    wiringpi.pwmWrite(18, 90)  # maximum RPM
+    time.sleep(10)
+    
+    
+    print("sleep for 20")
+    wiringpi.pwmWrite(18, 0)  # maximum RPM
+    time.sleep(10)
 
+
+   #70% test 
+    print("PWM: 90 70% for 5") 
+    wiringpi.pwmWrite(18, 90)  # maximum RPM
+    time.sleep(10)
+    
+    
+    print("sleep for 20")
+    wiringpi.pwmWrite(18, 0)  # maximum RPM
+    time.sleep(10)
+    
+    #60% test 
+    print("PWM: 77 60% for 10") 
+    wiringpi.pwmWrite(18, 90)  # maximum RPM
+    time.sleep(10)
+    
+    
+    print("sleep for 5")
+    wiringpi.pwmWrite(18, 0)  # maximum RPM
+    time.sleep(5)
+    print("Finished Fan")
+    
+    
+    wiringpi.pwmWrite(18, 0)  # maximum RPM
 main()
