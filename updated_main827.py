@@ -51,26 +51,30 @@ for pin in control_pins:
     GPIO.output(pin, 0)
 
 halfstep_forward = [
-                    [1,0,0,0],
-                    [1,1,0,0],
-                    [0,1,0,0],
-                    [0,1,1,0],
-                    [0,0,1,0],
-                    [0,0,1,1],
-                    [0,0,0,1],
-                    [1,0,0,1]
-                    ]
+   [1,0,0,0],
+   [1,1,0,0],
+   [0,1,0,0],
+   [0,1,1,0],
+   [0,0,1,0],
+   [0,0,1,1],
+   [0,0,0,1],
+   [1,0,0,1]
+]
 
 halfstep_reverse = [
-                    [1,0,0,1],
-                    [0,0,0,1],
-                    [0,0,1,1],
-                    [0,0,1,0],
-                    [0,1,1,0],
-                    [0,1,0,0],
-                    [1,1,0,0],
-                    [1,0,0,0]
-                    ]
+   [1,0,0,1],
+   [0,0,0,1],
+   [0,0,1,1],
+   [0,0,1,0],
+   [0,1,1,0],
+   [0,1,0,0],
+   [1,1,0,0],
+   [1,0,0,0]
+]
+
+
+ROTATE_RIGHT = -1
+ROTATE_LEFT = 1
 
 
 # Constants for x and y
@@ -78,15 +82,12 @@ position_array = [0,1,2,3,4,5,6,7,8]
 pwm_array = [0,1,2,3]  #associate with a pwm %
 
 #pwm function, case statements, 0 - 50%, 1- 60%, 2-70%, 3-80%
+pwm_value = 32
 
 # 2d that depics base position and  pwm of fan
-two_d_array[][] = [position_array][pwm_array]
+# two_d_array = [position_array, pwm_array]
 
-INITIAL = 4
 current_x  = 4
-previous_x = 4
-new_x = 0
-difference_x = new_x - current_x
 
 # time sleep delays
 delay_sensor = 10
@@ -102,31 +103,47 @@ ECHO = 18
 def main():
     
     print "Welcome to King Pong!"
+    trigger = distanceSensor()
     
-    while(DONE==false):
-        if (20 < distance < 30):
-            system_trigger = TRUE
-            new_x = input() #determine the unit difference to move, for examplle 1 unit = 10 steps
-            pwm_y = input()
-            
-            if (0 <= new_x < 4):
-                direction = ccw
-            elif (4 > new_x < 9):
-                direction = cw
+    while(trigger!=False):
+        print "Enter Base Position(Range 0-8)"
+        new_x = input() #determine the unit difference to move, for examplle 1 unit = 10 steps
+        print "Enter PWM of Fan(Range 1-4)"
+        pwm_y = input()
+        
+        difference_x = abs(new_x - current_x)
             
             
-            motor_steps = difference_x * 32;
-            stepperMotorBase(motor_steps, direction)
-            DCFan(pwm_value)
-            #delay for fan up to full speed5 units
-            #delay for ball ball to get loaded in the slot
+        if (0 <= new_x < 4):
+            direction = ROTATE_LEFT
+        elif (4 > new_x < 9):
+            direction = ROTATE_RIGHT
+        else:
+            break 
             
-            #delay for ball to be shot, or in cup
-            #delay for cup taking out
-            #remove the cup from the arrays, update total amonut of cups left
-            #reset to cen ter position
-            stepperMotorBase(motor_step, ~direction)
-        GPIO.cleanup()
+        print "Current: ", current_x, "New: ", new_x, "Diff: ", difference_x
+        motor_steps = difference_x * 32;
+        print "Steps: ", motor_steps, "direction", direction
+        
+        
+        stepperMotorBase(motor_steps , direction)
+        
+        #DCfan(pwm_value*pwm_y)
+        #print "Current: ", current_x, "New: ", new_x, "Diff: ", difference_x
+        #print "Steps: ", motor_steps
+        #delay for fan up to full speed5 units
+        #delay for ball ball to get loaded in the slot
+        
+        #delay for ball to be shot, or in cup
+        #delay for cup taking out
+        #remove the cup from the arrays, update total amonut of cups left
+        #reset to center position
+        time.sleep(5)
+        print "Steps: ", motor_steps, "direction", direction
+        
+        motor_steps = motor_steps * -1
+        stepperMotorBase(motor_steps , direction)
+    #GPIO.cleanup()
 
 #*********************************************************************************************
 
@@ -144,23 +161,23 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
     
     print("Stepper Motor from Base is Turning!")
     
-    if (dir ==1):
+    if (dir == 1):
         for i in range(x): # 90 degrees
             for halfstep in range(8):
                 for pin in range(4):
                     GPIO.output(control_pins[pin], halfstep_forward[halfstep][pin])
                 time.sleep(0.03)
 
-if(dir ==-1):
-    for i in range(x): # 90 degrees
-        for halfstep in range(8):
-            for pin in range(4):
-                GPIO.output(control_pins[pin], halfstep_reverse[halfstep][pin])
-                time.sleep(0.03)
+    elif(dir == -1):
+        for i in range(x): # 90 degrees
+            for halfstep in range(8):
+                for pin in range(4):
+                    GPIO.output(control_pins[pin], halfstep_reverse[halfstep][pin])
+                    time.sleep(0.03)
 
-for pin in control_pins:
-    GPIO.output(pin, 0)
-    
+    for pin in control_pins:
+        GPIO.output(pin, 0)
+        
     print("Finished Stepper Motor")
 
 #---------------------------------------------------------------------------------------------
@@ -249,8 +266,8 @@ def distanceSensor():
 
     print"Waiting For Sensor To Settle"
 
-    #after 5 unit time then output
-    time.sleep(5)
+    #after 3 unit time then output
+    time.sleep(3)
     GPIO.output(TRIG, True)
 
     time.sleep(0.00001)
@@ -268,8 +285,13 @@ def distanceSensor():
     distance = round(distance, 2)
 
     print "Distance:" ,distance,"cm"
+    
+    if (20 < distance < 30):
+        system_trigger = True
+    else:
+        system_trigger = False
 
-    return distance
+    return system_trigger
 #---------------------------------------------------------------------------------------------
 
 main() # run main
