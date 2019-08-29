@@ -172,62 +172,14 @@ def DCfan(pwm):
     print("PWM: 0")
     #there needs to be an assertion of delay for the fan to be ready operating at full speed
     
-    
     #100% test
     print("PWM: 128 100% for 5")
     wiringpi.pwmWrite(18, 90)  # maximum RPM
     time.sleep(10)
-    
-    print("sleep for 20")
-    wiringpi.pwmWrite(18, 0)  # maximum RPM
-    time.sleep(10)
-    
-    
-    #90% test
-    print("PWM: 115 90% for 5")
-    wiringpi.pwmWrite(18, 90)  # maximum RPM
-    time.sleep(10)
-    
-    
-    print("sleep for 20")
-    wiringpi.pwmWrite(18, 0)  # maximum RPM
-    time.sleep(10)
-    print("Finished Fan")
-    
-    #90% test
-    print("PWM: 100 80% for 5")
-    wiringpi.pwmWrite(18, 90)  # maximum RPM
-    time.sleep(10)
-    
-    
-    print("sleep for 20")
-    wiringpi.pwmWrite(18, 0)  # maximum RPM
-    time.sleep(10)
-    
-    
-    #70% test
-    print("PWM: 90 70% for 5")
-    wiringpi.pwmWrite(18, 90)  # maximum RPM
-    time.sleep(10)
-    
-    
-    print("sleep for 20")
-    wiringpi.pwmWrite(18, 0)  # maximum RPM
-    time.sleep(10)
-    
-    #60% test
-    print("PWM: 77 60% for 10")
-    wiringpi.pwmWrite(18, 90)  # maximum RPM
-    time.sleep(10)
-    
-    
-    print("sleep for 5")
-    wiringpi.pwmWrite(18, 0)  # maximum RPM
-    time.sleep(5)
     print("Finished Fan")
     
     
-    wiringpi.pwmWrite(18, 0)  # maximum RPM
+#wiringpi.pwmWrite(18, 0)  # maximum RPM
 #---------------------------------------------------------------------------------------------
 def distanceSensor():
 
