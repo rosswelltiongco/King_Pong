@@ -44,9 +44,14 @@ wiringpi.pwmSetRange(128)
 
 # Setup for Stepper Motor
 GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
-control_pins = [7,11,13,15]
+control_pins_left  = [7,11,13,15]
+control_pins_right = [3,5,8,10]
 
-for pin in control_pins:
+for pin in control_pins_left:
+    GPIO.setup(pin, GPIO.OUT)
+    GPIO.output(pin, 0)
+    
+for pin in control_pins_right:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, 0)
 
@@ -73,8 +78,8 @@ halfstep_reverse = [
 ]
 
 
-ROTATE_RIGHT = -1
-ROTATE_LEFT = 1
+ROTATE_RIGHT = 1
+ROTATE_LEFT = -1
 
 
 # Constants for x and y
@@ -106,38 +111,38 @@ GPIO.output(pin, 0)
 #*********************************************************************************************
 
 def main():
-    current_x=1; new_x=0;
+    new_x=1; difference=0; DCfan(0);
     print "Welcome to Demo 2 of King Pong!"
-    for current_x in range(1, 4, 1):
-        if(current_x=1):
+    print " " 
+    for current_x in range(1, 5, 1):
+        if(current_x==1):
+            difference = new_x-current_x
+            steps = difference * 32
+            print "Initial Steps"
+            print "Current position: ", current_x
+            print "New Position    : ", new_x
+            print "Difference      : ", difference
+            print "Steps           : ", steps
+        
+        if(current_x<=4):                
+            stepperMotorBase(steps, -1)
             DCfan(128)
-            print "Please wait for fan..."
-            time.sleep(3)
-            print "Load ball in on turret"
-            time.sleep(3)
             #GPIO.output(pin, 1)
-            print "Finished Cup(1)"
+            print "Finished Cup(", current_x, ")"
             #GPIO.output(pin, 0)
             DCfan(0) # Fan is Off
-        elif(current_x!=4):
-            stepperMotorBase(steps, ROTATE_RIGHT)
-            DCfan(128)
-            print "Please wait for fan..."
-            time.sleep(3)
-            print "Load ball in on turret"
-            time.sleep(3)
-            #GPIO.output(pin, 1)
-            print "Finished Cup(1)"
-            #GPIO.output(pin, 0)
-            DCfan(0) # Fan is Off
+            new_x = current_x+1
+            difference = new_x-current_x
+            steps = difference * 32
+            print "Updated Steps"
+            print "Current position: ", current_x
+            print "New Position    : ", new_x
+            print "Difference      : ", difference
+            print "Steps           : ", steps
+            print " "
+            print " "
         else:
             break
-        new_x = current_x+1
-        difference = new_x-current_x
-        steps = difference * 32
-        print "New Position: ", new_x
-        print "Difference: ", difference
-        print "steps: ", steps
     GPIO.cleanup()
 
 #*********************************************************************************************
@@ -160,20 +165,25 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
         for i in range(x): # 90 degrees
             for halfstep in range(8):
                 for pin in range(4):
-                    GPIO.output(control_pins[pin], halfstep_forward[halfstep][pin])
+                    GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
+                    GPIO.output(control_pins_right[pin], halfstep_forward[halfstep][pin])
                 time.sleep(0.03)
 
-    elif(dir == -1):
+    elif(dir == -1): # turning left
         for i in range(x): # 90 degrees
             for halfstep in range(8):
                 for pin in range(4):
-                    GPIO.output(control_pins[pin], halfstep_reverse[halfstep][pin])
+                    GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
+                    GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
                     time.sleep(0.03)
 
-    for pin in control_pins:
+    for pin in control_pins_left:
         GPIO.output(pin, 0)
         
-    print("Finished Stepper Motor")
+    for pin in control_pins_right:
+        GPIO.output(pin, 0)
+        
+    print("Finished Stepper Motors")
 
 #---------------------------------------------------------------------------------------------
 # Incorporate the fan into the main code running in parallel
@@ -181,27 +191,11 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
 
 def DCfan(pwm):
     
-    
-    print("Fan is turning on in 3 seconds")
-    print"3"
+    print "PWM: ", pwm
+    wiringpi.pwmWrite(18, pwm)  # maximum RPM
     time.sleep(1)
-    print"2"
-    time.sleep(1)
-    print"1"
-    time.sleep(1)
+    print("Fan Done")
     
-    wiringpi.pwmWrite(18, 0)   # minimum RPM
-    print("PWM: 0")
-    #there needs to be an assertion of delay for the fan to be ready operating at full speed
-    
-    #100% test
-    print("PWM: 128 100% for 5")
-    wiringpi.pwmWrite(18, 90)  # maximum RPM
-    time.sleep(10)
-    print("Finished Fan")
-    
-    
-#wiringpi.pwmWrite(18, 0)  # maximum RPM
 #---------------------------------------------------------------------------------------------
 def distanceSensor():
 
