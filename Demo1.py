@@ -86,22 +86,28 @@ GPIO.output(pin, 0)
 #*********************************************************************************************
 
 def main():
-    retry = False
+    quit = False
     print "Welcome to Demo 1 of King Pong!\n"
-    while(retry==False):
-        DCfan(128)
-        print "Please wait for fan...\n"
+    print "Loading -____-"
+    DCfan(0)
+    while(quit==False):
+        print "Please wait for fan..."
+        DCfan(100)
         print "Please load ball in on turret\n"
-        time.sleep(5)
         #GPIO.output(pin, 1)
         print "And we have launch off!!!"
-        #GPIO.output(pin, 0)
-        print "Enter 1 to retry, anything else will quit program: "
+        print "Enter any number to stop fan: "
         user_key = input()
-        if(user_key=="1"):
-            retry = True
-        else
-            retry = False
+        DCfan(0)
+        #GPIO.output(pin, 0)
+        print "Retry? Enter 1: "
+        user_key = input()
+        if(user_key==1):
+            quit = False
+        else:
+            quit = True
+            DCfan(0)
+    print "Program Terminated"
     GPIO.cleanup()
 
 
@@ -146,15 +152,9 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
 
 def DCfan(pwm):
     
-    wiringpi.pwmWrite(18, 0)   # minimum RPM
-    
-    #100% test
-    wiringpi.pwmWrite(18, 90)  # maximum RPM
-    time.sleep(10)
-    print("Finished Fan Function")
-    
-    
-#wiringpi.pwmWrite(18, 0)  # maximum RPM
+    wiringpi.pwmWrite(18, pwm)  # maximum RPM
+    time.sleep(5)
+
 #---------------------------------------------------------------------------------------------
 def distanceSensor():
 
