@@ -1,28 +1,8 @@
 # CECS 490 Project King Pong
-
-# Syntax for Main loop
-
-# Make 2D for set of cups(10x4)
-
-# While(done != true)
-
-#  Run Sensor and Camera Functions
-#  Returns Index Value for which Cup(X) and PWM Value(Y)
-#  PWM is entered by user input
-#  Run Stepper Motor Code to Move Base to Index(X value)
-#  Run DC Fan Code that will start the fan with Y value
-#  Use timer to have a delay
-#  Run Loading Code to load ball into pipe with fan on at desired
-#  PWM
-#  Use timer for delay in making sure ball is in cup and cup is taken out
-#  Set index = 4(intial)
-#  Run Stepper Motor Function to reset index
-#  Set done = TRUE
-
-# End of While Loop
-
-# Set done = FALSE outside of while loop in main()
-# To continue loop
+# Demo1.py
+# Created bv Mark Aquiapao
+# Date: September 5, 2019
+# Function: Shoot into (1) Cup
 
 #*********************************************************************************************
 # GPIO for Stepper Motor
@@ -106,17 +86,24 @@ GPIO.output(pin, 0)
 #*********************************************************************************************
 
 def main():
-    
-    print "Welcome to Demo 1 of King Pong!"
-    DCfan(128)
-    print "Please wait for fan..."
-    time.sleep(1)
-    print "Load ball in on turret"
-    time.sleep(1)
-    GPIO.output(pin, 1)
-    print "Finished"
-    GPIO.output(pin, 0)
+    retry = False
+    print "Welcome to Demo 1 of King Pong!\n"
+    while(retry==False):
+        DCfan(128)
+        print "Please wait for fan...\n"
+        print "Please load ball in on turret\n"
+        time.sleep(5)
+        #GPIO.output(pin, 1)
+        print "And we have launch off!!!"
+        #GPIO.output(pin, 0)
+        print "Enter 1 to retry, anything else will quit program: "
+        user_key = input()
+        if(user_key=="1"):
+            retry = True
+        else
+            retry = False
     GPIO.cleanup()
+
 
 #*********************************************************************************************
 
@@ -159,24 +146,12 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
 
 def DCfan(pwm):
     
-    
-    print("Fan is turning on in 3 seconds")
-    print"3"
-    time.sleep(1)
-    print"2"
-    time.sleep(1)
-    print"1"
-    time.sleep(1)
-    
     wiringpi.pwmWrite(18, 0)   # minimum RPM
-    print("PWM: 0")
-    #there needs to be an assertion of delay for the fan to be ready operating at full speed
     
     #100% test
-    print("PWM: 128 100% for 5")
     wiringpi.pwmWrite(18, 90)  # maximum RPM
     time.sleep(10)
-    print("Finished Fan")
+    print("Finished Fan Function")
     
     
 #wiringpi.pwmWrite(18, 0)  # maximum RPM
