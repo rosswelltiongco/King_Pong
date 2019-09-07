@@ -80,7 +80,7 @@ ECHO = 18
 
 # Port for Soleniod
 GPIO.setup(19, GPIO.OUT)
-GPIO.output(pin, 0)
+GPIO.output(19, 0)
 
 
 #*********************************************************************************************
@@ -94,12 +94,14 @@ def main():
         print "Please wait for fan..."
         DCfan(100)
         print "Please load ball in on turret\n"
-        #GPIO.output(pin, 1)
+        GPIO.output(19, 0)
+        time.sleep(2)
         print "And we have launch off!!!"
         print "Enter any number to stop fan: "
         user_key = input()
         DCfan(0)
-        #GPIO.output(pin, 0)
+        GPIO.output(19, 1)
+        time.sleep(2)
         print "Retry? Enter 1: "
         user_key = input()
         if(user_key==1):
