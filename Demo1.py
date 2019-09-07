@@ -91,17 +91,17 @@ def main():
     print "Loading -____-"
     DCfan(0)
     while(quit==False):
+        GPIO.output(19, 0)
         print "Please wait for fan..."
         DCfan(100)
         print "Please load ball in on turret\n"
+        GPIO.output(19, 1)
+        time.sleep(5)
         GPIO.output(19, 0)
-        time.sleep(2)
         print "And we have launch off!!!"
         print "Enter any number to stop fan: "
         user_key = input()
         DCfan(0)
-        GPIO.output(19, 1)
-        time.sleep(2)
         print "Retry? Enter 1: "
         user_key = input()
         if(user_key==1):
