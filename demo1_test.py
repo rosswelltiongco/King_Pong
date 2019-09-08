@@ -13,7 +13,7 @@ wiringpi.pinMode(18, 2)  # PWM output ONLY works on GPIO port 18
 
 wiringpi.pwmSetClock(6)  # this parameters correspond to 25 KHz
 wiringpi.pwmSetRange(128)
-
+GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
 #*********************************************************************************************
 
 def main():
