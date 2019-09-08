@@ -14,6 +14,9 @@ wiringpi.pinMode(18, 2)  # PWM output ONLY works on GPIO port 18
 wiringpi.pwmSetClock(6)  # this parameters correspond to 25 KHz
 wiringpi.pwmSetRange(128)
 GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
+# Port for Soleniod
+GPIO.setup(19, GPIO.OUT)
+GPIO.output(19, 0)
 #*********************************************************************************************
 
 def main():
