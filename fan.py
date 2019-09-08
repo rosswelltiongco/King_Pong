@@ -1,7 +1,7 @@
 
-INDEFINITE = 999
-
+INDEFINITE = 5
 import RPi.GPIO as GPIO
+
 import wiringpi
 import time
 class Fan:
@@ -9,8 +9,7 @@ class Fan:
         """
         Initialize code
         """
-        
-        self.fan_pin = gpio_pin
+
         
         # Setup PWM for DC Fan
         wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0

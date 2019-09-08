@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 
-
+GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
+        # Port for Soleniod
 
 class Solenoid:
     def __init__(self):
@@ -9,8 +10,8 @@ class Solenoid:
         """
         GPIO.output(19, 0)
     
-    def block():
+    def block(self):
         GPIO.output(19, 0)
     
-    def release():
+    def release(self):
         GPIO.output(19, 1)
