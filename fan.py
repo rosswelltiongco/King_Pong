@@ -1,31 +1,41 @@
-gpio_pin = 8
+
 INDEFINITE = 999
 
+import RPi.GPIO as GPIO
+import wiringpi
+import time
 class Fan:
-    def __init__(self,gpio_pin):
+    def __init__(self):
         """
         Initialize code
         """
+        
         self.fan_pin = gpio_pin
+        
+        # Setup PWM for DC Fan
+        wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
 
-    def get_pin(self):
-        """
-        Returns: Gpio pin
-        """
-        return self.fan_pin
+        wiringpi.wiringPiSetupGpio()
 
-    def start_fan(self,pwm_value):
+        wiringpi.pinMode(18, 2)  # PWM output ONLY works on GPIO port 18
+
+        wiringpi.pwmSetClock(6)  # this parameters correspond to 25 KHz
+        wiringpi.pwmSetRange(128)
+
+
+    def start_fan(self,pwm):
         """
         Args:
             pwm_value (int): value to run at
         
         Runs indefinitely
         """
-        print("fan is running at {}".format(pwm_value))
-        print(INDEFINITE)
+        wiringpi.pwmWrite(18, pwm)  # maximum RPM
+        time.sleep(INDEFINITE)
 
     def stop_fan(self):
         """
         Terminates fan
         """
-        print("fan stopped")
+        wiringpi.pwmWrite(18, 0)  # maximum RPM
+        time.sleep(INDEFINITE)
