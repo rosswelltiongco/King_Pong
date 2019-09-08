@@ -50,32 +50,43 @@ control_pins_right = [3,5,8,10]
 for pin in control_pins_left:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, 0)
-    
+
 for pin in control_pins_right:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, 0)
 
 halfstep_forward = [
-   [1,0,0,0],
-   [1,1,0,0],
-   [0,1,0,0],
-   [0,1,1,0],
-   [0,0,1,0],
-   [0,0,1,1],
-   [0,0,0,1],
-   [1,0,0,1]
-]
+                    [1,0,0,0],
+                    [1,1,0,0],
+                    [0,1,0,0],
+                    [0,1,1,0],
+                    [0,0,1,0],
+                    [0,0,1,1],
+                    [0,0,0,1],
+                    [1,0,0,1]
+                    ]
+
+#halfstep_reverse = [
+#   [1,0,0,1],
+#   [0,0,0,1],
+#   [0,0,1,1],
+#   [0,0,1,0],
+#   [0,1,1,0],
+#   [0,1,0,0],
+#   [1,1,0,0],
+#   [1,0,0,0]
+#]
 
 halfstep_reverse = [
-   [1,0,0,1],
-   [0,0,0,1],
-   [0,0,1,1],
-   [0,0,1,0],
-   [0,1,1,0],
-   [0,1,0,0],
-   [1,1,0,0],
-   [1,0,0,0]
-]
+                    [1,0,0,1],
+                    [1,0,0,0],
+                    [1,1,0,0],
+                    [0,1,0,0],
+                    [0,1,1,0],
+                    [0,0,1,0],
+                    [0,0,1,1],
+                    [0,0,0,1]
+                    ]
 
 
 ROTATE_RIGHT = 1
@@ -113,7 +124,7 @@ GPIO.output(pin, 0)
 def main():
     new_x=1; difference=0; DCfan(0);
     print "Welcome to Demo 2 of King Pong!"
-    print " " 
+    print " "
     for current_x in range(1, 5, 1):
         if(current_x==1):
             difference = new_x-current_x
@@ -123,8 +134,8 @@ def main():
             print "New Position    : ", new_x
             print "Difference      : ", difference
             print "Steps           : ", steps
-        
-        if(current_x<=4):                
+    
+        if(current_x<=4):
             stepperMotorBase(steps, -1)
             DCfan(128)
             #GPIO.output(pin, 1)
@@ -169,21 +180,21 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
                     GPIO.output(control_pins_right[pin], halfstep_forward[halfstep][pin])
                 time.sleep(0.03)
 
-    elif(dir == -1): # turning left
-        for i in range(x): # 90 degrees
-            for halfstep in range(8):
-                for pin in range(4):
-                    GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
-                    GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
-                    time.sleep(0.03)
+elif(dir == -1): # turning left
+    for i in range(x): # 90 degrees
+        for halfstep in range(8):
+            for pin in range(4):
+                GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
+                GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
+                time.sleep(0.03)
 
-    for pin in control_pins_left:
-        GPIO.output(pin, 0)
-        
+for pin in control_pins_left:
+    GPIO.output(pin, 0)
+    
     for pin in control_pins_right:
         GPIO.output(pin, 0)
-        
-    print("Finished Stepper Motors")
+
+print("Finished Stepper Motors")
 
 #---------------------------------------------------------------------------------------------
 # Incorporate the fan into the main code running in parallel
@@ -195,43 +206,43 @@ def DCfan(pwm):
     wiringpi.pwmWrite(18, pwm)  # maximum RPM
     time.sleep(1)
     print("Fan Done")
-    
+
 #---------------------------------------------------------------------------------------------
 def distanceSensor():
-
+    
     print"Distance Measurement In Progress"
-
+    
     GPIO.setup(TRIG,GPIO.OUT)
     GPIO.setup(ECHO,GPIO.IN)
     GPIO.output(TRIG, False)
-
+    
     print"Waiting For Sensor To Settle"
-
+    
     #after 3 unit time then output
     time.sleep(3)
     GPIO.output(TRIG, True)
-
+    
     time.sleep(0.00001)
     GPIO.output(TRIG, False)
-
+    
     while GPIO.input(ECHO)==0:
         pulse_start = time.time()
-
+    
     while GPIO.input(ECHO)==1:
         pulse_end = time.time()
-
-
+    
+    
     pulse_duration = pulse_end - pulse_start
     distance = pulse_duration * 17150
     distance = round(distance, 2)
-
+    
     print "Distance:" ,distance,"cm"
     
     if (20 < distance < 30):
         system_trigger = True
     else:
         system_trigger = False
-
+    
     return system_trigger
 #---------------------------------------------------------------------------------------------
 
