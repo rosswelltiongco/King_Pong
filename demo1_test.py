@@ -6,18 +6,18 @@ import time
 #*********************************************************************************************
 
 def main():
-    fan = fan.Fan()
-    solenoid = solenoid.Solenoid()
-    fan.start_fan(0)
-    solenoid.block()
+    fan_obj = fan.Fan()
+    solenoid_obj = solenoid.Solenoid()
+    fan_obj.start_fan(0)
+    solenoid_obj.block()
     print "Please wait for fan..."
-    fan.start_fan(100)
+    fan_obj.start_fan(100)
     print "Please load ball in on turret\n"
     
     time.sleep(5)
-    solenoid.release()
+    solenoid_obj.release()
     print "And we have launch off!!!"
-    fan.stop_fan()
+    fan_obj.stop_fan()
 
     GPIO.cleanup()
 
