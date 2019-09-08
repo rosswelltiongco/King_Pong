@@ -66,27 +66,17 @@ halfstep_forward = [
                     [1,0,0,1]
                     ]
 
-#halfstep_reverse = [
-#   [1,0,0,1],
-#   [0,0,0,1],
-#   [0,0,1,1],
-#   [0,0,1,0],
-#   [0,1,1,0],
-#   [0,1,0,0],
-#   [1,1,0,0],
-#   [1,0,0,0]
-#]
-
 halfstep_reverse = [
-                    [1,0,0,1],
-                    [1,0,0,0],
-                    [1,1,0,0],
-                    [0,1,0,0],
-                    [0,1,1,0],
-                    [0,0,1,0],
-                    [0,0,1,1],
-                    [0,0,0,1]
-                    ]
+   [1,0,0,1],
+   [0,0,0,1],
+   [0,0,1,1],
+   [0,0,1,0],
+   [0,1,1,0],
+   [0,1,0,0],
+   [1,1,0,0],
+   [1,0,0,0]
+]
+
 
 
 ROTATE_RIGHT = 1
@@ -125,6 +115,7 @@ def main():
     new_x=1; difference=0; DCfan(0);
     print "Welcome to Demo 2 of King Pong!"
     print " "
+    stepperMotorBase(16, -1)
     for current_x in range(1, 5, 1):
         if(current_x==1):
             difference = new_x-current_x
@@ -136,7 +127,7 @@ def main():
             print "Steps           : ", steps
     
         if(current_x<=4):
-            stepperMotorBase(steps, -1)
+            #stepperMotorBase(steps, -1)
             DCfan(128)
             #GPIO.output(pin, 1)
             print "Finished Cup(", current_x, ")"
@@ -180,13 +171,13 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
                     GPIO.output(control_pins_right[pin], halfstep_forward[halfstep][pin])
                 time.sleep(0.03)
 
-elif(dir == -1): # turning left
-    for i in range(x): # 90 degrees
-        for halfstep in range(8):
-            for pin in range(4):
-                GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
-                GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
-                time.sleep(0.03)
+    elif(dir == -1): # turning left
+        for i in range(x): # 90 degrees
+            for halfstep in range(8):
+                for pin in range(4):
+                    GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
+                    GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
+                    time.sleep(0.03)
 
 for pin in control_pins_left:
     GPIO.output(pin, 0)
