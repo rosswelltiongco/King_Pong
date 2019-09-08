@@ -11,7 +11,7 @@ class Solenoid:
         GPIO.output(19, 0)
     
     def block(self):
-        GPIO.output(19, 0)
+        GPIO.output(19, 1)
     
     def release(self):
-        GPIO.output(19, 1)
+        GPIO.output(19, 0)

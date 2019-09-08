@@ -29,7 +29,11 @@ def main():
         time.sleep(5)
         solenoid_obj.release()
         print "And we have launch off!!!"
+        
+        
+        
         print "Enter any number to stop fan: "
+        
         user_key = input()
         fan_obj.stop_fan()
         print "Retry? Enter 1: "
