@@ -42,9 +42,15 @@ wiringpi.pwmSetRange(128)
 
 # Setup for Stepper Motor
 GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
-control_pins = [7,11,13,15] 
+control_pins_left = [15,11,7,13]
+control_pins_right = [10,5,3,8]
 
-for pin in control_pins:
+
+for pin in control_pins_left:
+    GPIO.setup(pin, GPIO.OUT)
+    GPIO.output(pin, 0)
+    
+for pin in control_pins_right:
     GPIO.setup(pin, GPIO.OUT)
     GPIO.output(pin, 0)
 
@@ -72,79 +78,6 @@ halfstep_reverse = [
 
 #_-__-_________--___--_--_ultra sonic sensor code _______-_----__--___-__-
 #Specify by pin number not by GPIO number
-TRIG = 16
-ECHO = 18
-
-print"Distance Measurement In Progress"
-
-GPIO.setup(TRIG,GPIO.OUT)
-GPIO.setup(ECHO,GPIO.IN)
-GPIO.output(TRIG, False)
-
-print"Waiting For Sensor To Settle"
-
-#after 5 unit time then output
-time.sleep(5)
-GPIO.output(TRIG, True)
-
-time.sleep(0.00001)
-GPIO.output(TRIG, False)
-
-while GPIO.input(ECHO)==0:
-    pulse_start = time.time()
- 
-while GPIO.input(ECHO)==1:
-    pulse_end = time.time()
-    
-    
-pulse_duration = pulse_end - pulse_start
-distance = pulse_duration * 17150
-distance = round(distance, 2)
-
-print "Distance:" ,distance,"cm"
-
-
-
-
-
-def main():
-    
-    print "Welcome to King Pong!"
-    
-    while(DONE==false)
-        if (20 < distance < 30):
-            system_trigger = TRUE
-            new_x = input() #determine the unit difference to move, for examplle 1 unit = 10 steps
-            pwm_y = input()
-            
-            if (0 <= new_x < 4):
-                direction = ccw
-            elif (4 > new_x < 9):
-                direction = cw
-                
-                
-            motor_steps = difference_x * 32;
-            stepperMotorBase(motor_steps, direction)
-            DCFan(pwm_value)
-            #delay for fan up to full speed5 units
-            #delay for ball ball to get loaded in the slot
-            
-            #delay for ball to be shot, or in cup
-            #delay for cup taking out
-            #remove the cup from the arrays, update total amonut of cups left
-            #reset to cen ter position
-            stepperMotorBase(motor_step, ~direction)
-            
-            #send a done back to the while loop
-            
-        #receive x and y
-        #run sensor to return a distance to trigger the system 50
-        #flag to determine if there's a cup present within the 50 - 70, then send a flag to trigger the system
-        #which x, new position using user input, to get the difference. 
-        #which y, user input
-        
-
-
 
 # Constants for x and y 
 position_array = [0,1,2,3,4,5,6,7,8]
@@ -152,8 +85,6 @@ pwm_array = [0,1,2,3]  #associate with a pwm %
 
 #pwm function, case statements, 0 - 50%, 1- 60%, 2-70%, 3-80%
 
-
-two_d_array[][] = [position_array][pwm_array]
 
 INITIAL = 4
 current_x  = 4
@@ -173,16 +104,9 @@ def main():
     
     print "Welcome to King Pong!"
     
-    while(DONE==false)
-        
+    stepperMotorBase(64, 1)
     
-    
-    
-    #stepperMotorBase(64, 1)  # 90 degrees
-    while (20 < distance < 30):
-        DCfan(input()) # max RPM
-    #stepperMotorBase(16, -1) # 90 degrees other way
-    
+    stepperMotorBase(64, -1)
     GPIO.cleanup()
 
 # 2 dimensional array to control the time and the amount of steps to step for the motors
@@ -194,17 +118,22 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
         for i in range(x): # 90 degrees
             for halfstep in range(8):
                 for pin in range(4):
-                    GPIO.output(control_pins[pin], halfstep_forward[halfstep][pin])
+                    GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
+                    GPIO.output(control_pins_right[pin], halfstep_forward[halfstep][pin])
                 time.sleep(0.03)
 
     if(dir ==-1):
         for i in range(x): # 90 degrees
             for halfstep in range(8):
                 for pin in range(4):
-                    GPIO.output(control_pins[pin], halfstep_reverse[halfstep][pin])
+                    GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
+                    GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
                 time.sleep(0.03)
 
-    for pin in control_pins:
+    for pin in control_pins_left:
+        GPIO.output(pin, 0)
+        
+    for pin in control_pins_right:
         GPIO.output(pin, 0)
         
     print("Finished Stepper Motor")
