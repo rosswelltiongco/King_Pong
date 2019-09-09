@@ -175,8 +175,8 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
         for i in range(x): # 90 degrees
             for halfstep in range(8):
                 for pin in range(4):
-                    GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
                     GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
+                    GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
                 time.sleep(0.03)
 
 for pin in control_pins_left:
