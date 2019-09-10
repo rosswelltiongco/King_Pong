@@ -1,10 +1,10 @@
 import RPi.GPIO as GPIO
 import time 
 
-out1 = 13
-out2 = 11
-out3 = 15
-out4 = 12
+out1 = 13 # Pin [3] (Inner Right)
+out2 = 11 # Pin [2] (Inner Left)
+out3 = 15 # Pin [4] (Outer Right)
+out4 = 12 # Pin [1] (Outer Left)
 
 i=0
 positive=0
