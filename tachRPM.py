@@ -4,7 +4,7 @@ import RPi.GPIO as GPIO
 
 import wiringpi
 import time
-class Fan:
+class Tach:
     def __init__(self):
         """
         Initialize code
