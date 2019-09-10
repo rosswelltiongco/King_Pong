@@ -42,6 +42,7 @@ wiringpi.pwmSetRange(128)
 
 # Setup for Stepper Motor
 GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
+# Pins [1,3,4,2] -> 1 = Outer Left, 4 = Outer right, Heat Sink facing down on H-Bridge
 control_pins_left = [15,11,7,13]
 control_pins_right = [10,5,3,8]
 
