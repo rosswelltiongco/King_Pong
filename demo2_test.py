@@ -28,8 +28,7 @@ def main():
         fan_obj.start_fan(100)
         print "Please load ball in on turret\n"
         solenoid_obj.block()
-        rpm_value = tach_obj.read_rpm()
-        tach_obj.display_rpm(rpm_value)
+        tach_obj.read_RPM()
         time.sleep(5)
         solenoid_obj.release()
         print "And we have launch off!!!"

@@ -1,34 +1,31 @@
 
 INDEFINITE = 5
+import pigpio
+from read_RPM import reader
 import RPi.GPIO as GPIO
+
 
 import wiringpi
 import time
+
+pi = pigpio.pi()
+
 class Tach:
     def __init__(self):
         """
         Initialize code
         """
         # Setup GPIO for tach
-        GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(21, GPIO.IN) # Port 21 = GPIO 9
+        RPM_GPIO = 9
+        tach = reader(pi, RPM_GPIO)
     
-    def read_rpm(self):
+    def read_RPM(self):
         """
-        Args:
-            pwm_value (int): value to run at
-        
         Runs indefinitely
         """
+        rpm = tach.RPM()
+        print "RPM:"
+        print rpm
+        print " "
         time.sleep(2)
-        return rpm = tach.RPM()
-
-    def display_rpm(self, rpm_value)
-        """
-        Args:
-        rpm_value (int): value from tach
-            
-        Runs indefinitely
-        """
-        print "RPM: ", rpm_value
 
