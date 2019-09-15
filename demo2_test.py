@@ -2,6 +2,7 @@
 import RPi.GPIO as GPIO
 import fan
 import solenoid
+import tachRPM
 import time
 import wiringpi
 
@@ -16,6 +17,7 @@ GPIO.setup(19, GPIO.OUT)
 def main():
     fan_obj = fan.Fan()
     solenoid_obj = solenoid.Solenoid()
+    tach_obj = tachRPM.Tach()
     quit = False
     print "Welcome to Demo 1 of King Pong!\n"
     print "Loading -____-"
@@ -23,9 +25,10 @@ def main():
     while(quit==False):
         solenoid_obj.release()
         print "Please wait for fan..."
-        fan_obj.start_fan(41)
+        fan_obj.start_fan(100)
         print "Please load ball in on turret\n"
         solenoid_obj.block()
+        tach_obj.read_RPM()
         time.sleep(5)
         solenoid_obj.release()
         print "And we have launch off!!!"
