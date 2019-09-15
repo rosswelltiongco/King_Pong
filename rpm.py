@@ -21,9 +21,20 @@ def fell(n):
 	dt = time.time() - t
 	if dt < 0.01: return # reject spuriously short pulses
 
+    values = []
+
 	freq = 1 / dt
 	rpm = (freq / 2) * 60
-	print "%.f" % (rpm,)
+    
+    if len(values) < 100:
+        values.append(rpm)
+    else:
+        values.pop(0)
+        values.append(rpm)
+
+    avg = sum(values) / len(values)
+	print "%.f" % (avg,)
+    
 	t = time.time()	
 
 GPIO.add_event_detect(TACH, GPIO.FALLING, fell)
