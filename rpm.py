@@ -1,127 +1,30 @@
-#!/usr/bin/env python
+#!/usr/bin/python -u
+# tachfan.py - read RPM from a PC fan tachometer wired to GPIO
+#
+# references:
+# http://electronics.stackexchange.com/questions/8295/how-to-interpret-the-output-of-a-3-pin-computer-fan-speed-sensor
+# http://www.formfactors.org/developer/specs/REV1_2_Public.pdf
 
-# read_RPM.py
-# 2016-01-20
-# Public Domain
-
+import RPi.GPIO as GPIO
 import time
-import pigpio # http://abyz.co.uk/rpi/pigpio/python.html
 
-class reader:
-   """
-   A class to read speedometer pulses and calculate the RPM.
-   """
-   def __init__(self, pi, gpio, pulses_per_rev=1.0, weighting=0.0, min_RPM=5.0):
-      """
-      Instantiate with the Pi and gpio of the RPM signal
-      to monitor.
+GPIO.setmode(GPIO.BOARD)
 
-      Optionally the number of pulses for a complete revolution
-      may be specified.  It defaults to 1.
+TACH = 36 # BCM 16
 
-      Optionally a weighting may be specified.  This is a number
-      between 0 and 1 and indicates how much the old reading
-      affects the new reading.  It defaults to 0 which means
-      the old reading has no effect.  This may be used to
-      smooth the data.
+GPIO.setwarnings(False)
+GPIO.setup(TACH, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-      Optionally the minimum RPM may be specified.  This is a
-      number between 1 and 1000.  It defaults to 5.  An RPM
-      less than the minimum RPM returns 0.0.
-      """
-      self.pi = pi
-      self.gpio = gpio
-      self.pulses_per_rev = pulses_per_rev
+t = time.time()
+def fell(n):
+	global t
+	dt = time.time() - t
+	if dt < 0.01: return # reject spuriously short pulses
 
-      if min_RPM > 1000.0:
-         min_RPM = 1000.0
-      elif min_RPM < 1.0:
-         min_RPM = 1.0
+	freq = 1 / dt
+	rpm = (freq / 2) * 60
+	print "%.f" % (rpm,)
+	t = time.time()	
 
-      self.min_RPM = min_RPM
-
-      self._watchdog = 200 # Milliseconds.
-
-      if weighting < 0.0:
-         weighting = 0.0
-      elif weighting > 0.99:
-         weighting = 0.99
-
-      self._new = 1.0 - weighting # Weighting for new reading.
-      self._old = weighting       # Weighting for old reading.
-
-      self._high_tick = None
-      self._period = None
-
-      pi.set_mode(gpio, pigpio.INPUT)
-
-      self._cb = pi.callback(gpio, pigpio.RISING_EDGE, self._cbf)
-      pi.set_watchdog(gpio, self._watchdog)
-
-   def _cbf(self, gpio, level, tick):
-
-      if level == 1: # Rising edge.
-
-         if self._high_tick is not None:
-            t = pigpio.tickDiff(self._high_tick, tick)
-
-            if self._period is not None:
-               self._period = (self._old * self._period) + (self._new * t)
-            else:
-               self._period = t
-
-         self._high_tick = tick
-
-      elif level == 2: # Watchdog timeout.
-
-         if self._period is not None:
-            if self._period < 2000000000:
-               self._period += (self._watchdog * 1000)
-
-   def RPM(self):
-      """
-      Returns the RPM.
-      """
-      RPM = 0.0
-      if self._period is not None:
-         RPM = 60000000.0 / (self._period * self.pulses_per_rev)
-         if RPM < self.min_RPM:
-            RPM = 0.0
-
-      return RPM
-
-   def cancel(self):
-      """
-      Cancels the reader and releases resources.
-      """
-      self.pi.set_watchdog(self.gpio, 0) # cancel watchdog
-      self._cb.cancel()
-
-if __name__ == "__main__":
-
-   import time
-   import pigpio
-   import read_RPM
-
-   RPM_GPIO = 4
-   RUN_TIME = 60.0
-   SAMPLE_TIME = 2.0
-
-   pi = pigpio.pi()
-
-   p = read_RPM.reader(pi, RPM_GPIO)
-
-   start = time.time()
-
-   while (time.time() - start) < RUN_TIME:
-
-      time.sleep(SAMPLE_TIME)
-
-      RPM = p.RPM()
-     
-      print("RPM={}".format(int(RPM+0.5)))
-
-   p.cancel()
-
-   pi.stop()
-
+GPIO.add_event_detect(TACH, GPIO.FALLING, fell)
+while True: time.sleep(1e9)
