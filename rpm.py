@@ -40,7 +40,7 @@ def fell(n):
     else:
         values.pop(0)
         values.append(rpm)
-    print "%.f" % (rpm,)
+    # print "%.f" % (rpm,)
     
     t = time.time() 
 
@@ -52,5 +52,4 @@ GPIO.add_event_detect(TACH, GPIO.FALLING, fell)
 
 # while True: time.sleep(1e9)
 
-while 1:
-    print(get_rpm())
+#while 1:   print(get_rpm())

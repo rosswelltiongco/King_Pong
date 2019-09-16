@@ -1,5 +1,5 @@
 
-INDEFINITE = 5
+INDEFINITE = 1.5 #5 FIXME: 5 used for demo 1
 import RPi.GPIO as GPIO
 
 import wiringpi
@@ -18,8 +18,8 @@ class Fan:
 
         wiringpi.pinMode(18, 2)  # PWM output ONLY works on GPIO port 18
 
-        wiringpi.pwmSetClock(6)  # this parameters correspond to 25 KHz
-        wiringpi.pwmSetRange(128)
+        wiringpi.pwmSetClock(6)  # this parameters correspond to 25 KHz #192
+        wiringpi.pwmSetRange(128) # 4096
 
 
     def start_fan(self,pwm):

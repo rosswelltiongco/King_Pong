@@ -4,6 +4,7 @@ import fan
 import solenoid
 import time
 import wiringpi
+import rpm
 
 wiringpi.wiringPiSetupGpio()
 wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
@@ -17,7 +18,7 @@ def main():
     fan_obj = fan.Fan()
     solenoid_obj = solenoid.Solenoid()
     quit = False
-    print "Welcome to Demo 1 of King Pong!\n"
+    print "Welcome to Demo 2 of King Pong!\n"
     print "Loading -____-"
     fan_obj.stop_fan()
     while(quit==False):
@@ -28,6 +29,7 @@ def main():
         solenoid_obj.block()
         time.sleep(5)
         solenoid_obj.release()
+        print(rpm.get_rpm())
         print "And we have launch off!!!"
         
         
@@ -48,3 +50,4 @@ def main():
 
 
 main() # run main
+
