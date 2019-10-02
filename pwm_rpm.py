@@ -43,7 +43,7 @@ def main():
     for count in range(29, 61, 2):
         fan_obj.start_fan(count)
         pwm_values.append(count)
-        rpm_val = int(rpm.get_rpm()) // 100
+        rpm_val = int(rpm.get_rpm()) // 10
         rpm_values.append(rpm_val)
         print("PWM: {0}\tRPM: {1}".format(count,rpm_val))
     
@@ -55,7 +55,7 @@ def main():
     trpm = int(input("Enter a desired RPM."))
     while(1):
         print("works")
-        rpm_val = int(rpm.get_rpm()) // 100
+        rpm_val = int(rpm.get_rpm()) // 10
         if(trpm > rpm_val):
             count = count + 1
         if(trpm< rpm_val):

@@ -5,6 +5,7 @@ import solenoid
 import time
 import wiringpi
 import rpm
+import PID
 
 wiringpi.wiringPiSetupGpio()
 wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
@@ -16,15 +17,31 @@ GPIO.setup(19, GPIO.OUT)
 
 def main():
     fan_obj = fan.Fan()
+    pid_obj = PID.PID()
+    
     solenoid_obj = solenoid.Solenoid()
     quit = False
     print "Welcome to Demo 2 of King Pong!\n"
     print "Loading -____-"
     fan_obj.stop_fan()
+    
     while(quit==False):
         solenoid_obj.release()
         print "Please wait for fan..."
-        fan_obj.start_fan(41)
+        
+        while(1):
+            time.sleep(0.5)
+            # Initalize sp and collect rpm(4 figures)
+            pid_obj.setPoint(1500)
+            rpm_value = int(rpm.get_rpm()) // 10
+            print("rpm ", rpm_value)
+            pv = int((pid_obj.update(rpm_value)))+ 64
+            print ("pv ", pv)
+            
+            fan_obj.start_fan(pv)
+            print("PWM: {0}\tRPM: {1}".format(pv,int(rpm.get_rpm())))
+        
+        
         print "Please load ball in on turret\n"
         solenoid_obj.block()
         time.sleep(5)

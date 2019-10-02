@@ -23,7 +23,7 @@ def main():
     while(quit==False):
         solenoid_obj.release()
         print "Please wait for fan..."
-        fan_obj.start_fan(41)
+        fan_obj.start_fan(46)
         print "Please load ball in on turret\n"
         solenoid_obj.block()
         time.sleep(5)
