@@ -27,7 +27,7 @@ def main():
         ##print (rpm.get_rpm())
         #print("PWM: {0}\nRPM: {1}\nPV: {2}".format(pv,int(rpm.get_rpm()),pv))
         #time.sleep(1)
-        # pv = pid_obj.update(rpm_val)
+        # pv = pid_obj.update(rpm_va l)
         #fan_obj.update_fan(55)
         
         # Initalize sp and collect rpm(4 figures)

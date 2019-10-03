@@ -32,6 +32,9 @@ class Fan:
         wiringpi.pwmWrite(18, pwm)  # maximum RPM
         time.sleep(INDEFINITE)
 
+    def update_fan(self,pwm):
+        wiringpi.pwmWrite(18,pwm)
+
     def stop_fan(self):
         """
         Terminates fan

@@ -5,6 +5,7 @@ import solenoid
 import time
 import wiringpi
 import rpm
+import PID
 
 wiringpi.wiringPiSetupGpio()
 wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0

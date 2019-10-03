@@ -9,7 +9,7 @@ class PID:
     Discrete PID control
     """
 
-    def __init__(self, P=0.4, I=0.2, D=0.0, Derivator=0, Integrator=0, Integrator_max=500, Integrator_min=-500):
+    def __init__(self, P=0.003, I=0.003 , D=0.0, Derivator=0, Integrator=0, Integrator_max=500, Integrator_min=-500):
 
         self.Kp=P
         self.Ki=I
@@ -45,7 +45,7 @@ class PID:
         #PID = self.P_value + self.I_value + self.D_value
         PID = self.P_value + self.I_value
         
-        print PID
+        # print PID
      
         return PID
 

@@ -6,6 +6,7 @@ import time
 import wiringpi
 import rpm
 import PID
+import base
 
 wiringpi.wiringPiSetupGpio()
 wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
@@ -16,10 +17,15 @@ GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the b
 GPIO.setup(19, GPIO.OUT)
 
 def main():
-    fan_obj = fan.Fan()
-    pid_obj = PID.PID()
+    #fan_obj = fan.Fan()
+    #pid_obj = PID.PID()
+    base_obj = base.Base()
     
-    solenoid_obj = solenoid.Solenoid()
+    #solenoid_obj = solenoid.Solenoid()
+    
+    base_obj.move_left(64) # 128 = 1 cup difference. 64 = 1/2 offset
+    """
+    
     quit = False
     print "Welcome to Demo 2 of King Pong!\n"
     print "Loading -____-"
@@ -62,6 +68,7 @@ def main():
             quit = True
             fan_obj.stop_fan()
     print "Program Terminated"
+    """
     GPIO.cleanup()
 
 

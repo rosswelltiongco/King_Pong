@@ -100,14 +100,15 @@ delay_shoot = 12
 
 
 
-
+#128 steps = 1 cup difference
+#64 steps  = offset 
 def main():
     
     print "Welcome to King Pong!"
     
-    stepperMotorBase(64, 1)
+    #stepperMotorBase(128, 1)
     
-    stepperMotorBase(64, -1)
+    stepperMotorBase(128, -1)
     GPIO.cleanup()
 
 # 2 dimensional array to control the time and the amount of steps to step for the motors
@@ -121,7 +122,7 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
                 for pin in range(4):
                     GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
                     GPIO.output(control_pins_right[pin], halfstep_forward[halfstep][pin])
-                time.sleep(0.03)
+                time.sleep(0.01)
 
     if(dir ==-1):
         for i in range(x): # 90 degrees
@@ -129,7 +130,7 @@ def stepperMotorBase(x, dir): # 0.03 = 30 ms
                 for pin in range(4):
                     GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
                     GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
-                time.sleep(0.03)
+                time.sleep(0.01)
 
     for pin in control_pins_left:
         GPIO.output(pin, 0)
