@@ -4,7 +4,7 @@ import fan
 import solenoid
 import time
 import wiringpi
-import rpm
+#import rpm
 import PID
 import base
 
@@ -16,13 +16,20 @@ GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the b
         # Port for Soleniod
 GPIO.setup(19, GPIO.OUT)
 
+
+
+
 def main():
-    fan_obj = fan.Fan()
-    pid_obj = PID.PID()
+    #fan_obj = fan.Fan()
+   # pid_obj = PID.PID()
     base_obj = base.Base()
+    base_obj.move_left(400)
+    base_obj.move_right(20)
+    base_obj.move_left(100)
     
+        
     #solenoid_obj = solenoid.Solenoid()
-    fan_obj.start_fan(64)
+#    fan_obj.start_fan(64)
     #base_obj.move_right(64) # 128 = 1 cup difference. 64 = 1/2 offset
     """
     
