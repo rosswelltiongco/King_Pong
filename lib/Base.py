@@ -1,23 +1,15 @@
-# CECS 490 Project King Pong
-
-# Class file for the stepper motor controlling the base
-
-# GPIO for Stepper Motor
 import RPi.GPIO as GPIO
 import time
 
-
-# Setup for Stepper Motor
 GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
 # Pins [1,3,4,2] -> 1 = Outer Left, 4 = Outer right, Heat Sink facing down on H-Bridge
 control_pins_left = [15,11,7,13]
-
 control_pins_right = [10,5,16,8]
 
-
-LimitSwitchUp = 22 # The limit switch is connected to this pin
+LimitSwitchUp = 22
 
 GPIO.setup(LimitSwitchUp, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+
 global rightBoundry,leftBoundry, pos
 
 halfstep_forward = [
@@ -45,9 +37,6 @@ halfstep_reverse = [
 class Base:
     
     def __init__(self):
-        """
-        Initialize code
-        """
         global pos
         global leftBoundry
         global rightBoundry
@@ -92,7 +81,7 @@ class Base:
                 for pin in range(4):
                     GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
                     GPIO.output(control_pins_right[pin], halfstep_forward[halfstep][pin])
-                time.sleep(0.01)
+                time.sleep(0.0001)
 
         for pin in control_pins_left:
             GPIO.output(pin, 0)
@@ -118,7 +107,7 @@ class Base:
                     for pin in range(4):
                         GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
                         GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
-                    time.sleep(0.01)
+                    time.sleep(0.004)
                 pos = pos + 1
                 currPos = pos
                 print(pos)
@@ -145,13 +134,3 @@ class Base:
             
         for pin in control_pins_right:
             GPIO.output(pin, 0)
-            
-    
-
-
-   # def reset():
-      #pos = 0
-
-
-#GPIO.add_event_detect(22,GPIO.RISING,reset)
-
