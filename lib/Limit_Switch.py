@@ -1,5 +1,4 @@
 import RPi.GPIO as GPIO
-import time
 
 
 GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
