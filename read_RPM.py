@@ -103,7 +103,7 @@ if __name__ == "__main__":
    import pigpio
    import read_RPM
 
-   RPM_GPIO = 4
+   RPM_GPIO = 3
    RUN_TIME = 60.0
    SAMPLE_TIME = 2.0
 

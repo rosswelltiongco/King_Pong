@@ -41,11 +41,11 @@ def main():
     
     pwm_values = []
     rpm_values = []
-    for count in range(29, 61, 2):
+    for count in range(29, 61, 15):
         fan_obj.start_fan(count)
         pwm_values.append(count)
         rpm_val = int(rpm.get_rpm()) // 10
-        rpm_values.append(rpm_val)
+        #rpm_values.append(rpm_val)
         print("PWM: {0}\tRPM: {1}".format(count,rpm_val))
     
     #GPIO.cleanup()
