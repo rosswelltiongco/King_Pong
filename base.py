@@ -1,5 +1,9 @@
+import RPi.GPIO as GPIO
+
 class Base:
     def __init__(self, pos):
+	import RPi.GPIO as GPIO
+
         self.pos = pos
         self.boundary_left = 400
         self.boundary_right = 0
@@ -22,5 +26,6 @@ class Base:
 base = Base(0)
 base.move_left(50)
 base.move_right(100)
-base.move_left(1000)
+base.move_left(400)
 base.move_right(200)
+
