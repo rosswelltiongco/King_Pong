@@ -6,7 +6,7 @@ import base_test
 
 def main():
     print "me"
-    base_obj = base_test.Base(0)
+    #base_obj = base_test.Base(0)
     print "me"
     #base_obj.move_left(150)
     #base_obj.move_right(150)

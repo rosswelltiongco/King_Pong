@@ -41,7 +41,7 @@ class Base:
     def __init__(self, pos):    
     
         self.pos = pos
-        self.boundary_left = 100
+        self.boundary_left = 375
         self.boundary_right = 0
 
 
@@ -54,18 +54,13 @@ class Base:
             GPIO.output(pin, 0)
         
         GPIO.setup(22,GPIO.IN)
-        leftBoundry = 0
         while(GPIO.input(LimitSwitchUp)==0): # 90 degrees
             for halfstep in range(8):
                 for pin in range(4):
                     GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
                     GPIO.output(control_pins_right[pin], halfstep_forward[halfstep][pin])
                 time.sleep(0.01)
-                
-                leftBoundry = leftBoundry + 1
-        #rightBoundry = 0
-        #leftBoundry = 50
-        pos = 0
+
         #print(leftBoundry)
 
 
@@ -86,9 +81,9 @@ class Base:
         Runs based on x in the right direction
         """
         
-        if(delta > self.pos - 1):
-            delta = self.pos
-        elif (delta < self.pos):
+        if(delta > self.boundary_right):
+            delta = self.pos 
+        elif (delta < self.boundary_right):
             delta = delta
             
             
@@ -96,6 +91,7 @@ class Base:
         print("Base is Turning!")
         
         for i in range(delta): # 90 degrees
+            print(self.pos)
             for halfstep in range(8):
                 for pin in range(4):
                     GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
@@ -134,18 +130,20 @@ class Base:
             
         
         """
-        if(self.pos + delta + 1 > 100):
-            delta = self.pos + delta  - 100
+        if(self.pos + delta  > self.boundary_left):
+            delta = (self.pos + delta)  - (delta - self.boundary_left) 
         #elif (self.pos + delta):
          #   delta = delta - self.pos
         
         for i in range(delta): # 90 degrees
+            print(self.pos)
             for halfstep in range(8):
                 for pin in range(4):
                     GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
                     GPIO.output(control_pins_right[pin], halfstep_reverse[halfstep][pin])
                 time.sleep(0.01)
             self.pos += 1
+            
         for pin in control_pins_left:
             GPIO.output(pin, 0)
             
@@ -155,8 +153,8 @@ class Base:
         
 
 base = Base(0)
-base.move_left(150)
+base.move_left(75)
 base.move_right(150)
-base.move_left(100)
-base.move_right(100)
+base.move_left(200)
+base.move_right(200)
 
