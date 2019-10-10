@@ -1,4 +1,5 @@
 import RPi.GPIO as GPIO
+import time
 
 class Solenoid:
     # V+ - Diode
@@ -19,3 +20,7 @@ class Solenoid:
     def release(self):
         GPIO.output(self.pin, 0)
 
+solenoid = Solenoid() 
+solenoid.block()
+time.sleep(2)
+solenoid.release()

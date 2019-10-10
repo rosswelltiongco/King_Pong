@@ -41,7 +41,7 @@ class Base:
     def __init__(self, pos):    
     
         self.pos = pos
-        self.boundary_left = 375
+        self.boundary_left = 400
         self.boundary_right = 0
 
 
@@ -152,9 +152,12 @@ class Base:
 
         
 
-base = Base(0)
-base.move_left(75)
+#base = Base(0)
+#base.move_left(75)
+#base.move_right(50)
+
+"""
 base.move_right(150)
 base.move_left(200)
 base.move_right(200)
-
+"""
