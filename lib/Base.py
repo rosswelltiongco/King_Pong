@@ -1,3 +1,6 @@
+# FIXME: Breakout bug when target exceeds left boundary
+# Followup note: if we use targeet placement system, do we need boundary checks? Keep boundary checks for now
+
 import RPi.GPIO as GPIO
 import time     
 GPIO.setwarnings(False)
@@ -104,3 +107,11 @@ class Base:
     def off(self):
         for pin in control_pins_left:
             GPIO.output(pin, 0)
+
+    def go_to(self,target):
+        if self.pos < target:
+            while self.pos < target:
+                self.step_left(1)
+        else:
+            while self.pos > target:
+                self.step_right(1)
