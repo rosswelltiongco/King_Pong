@@ -42,7 +42,7 @@ class Base:
         self.pos = pos
         self.BOUND_LEFT = 400
         self.BOUND_RIGHT = 0
-
+        self.SPEED = 0.002
         
         GPIO.setup(22,GPIO.IN)
         
@@ -51,7 +51,7 @@ class Base:
             for halfstep in range(8):
                 for pin in range(4):
                     GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
-                time.sleep(0.01)
+                time.sleep(self.SPEED)
         self.off()        
         
     def step_right(self, steps):
@@ -72,7 +72,7 @@ class Base:
                 for halfstep in range(8):
                     for pin in range(4):
                         GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
-                    time.sleep(0.01)
+                    time.sleep(self.SPEED)
                 self.pos -= 1
         self.off()
 
@@ -95,7 +95,7 @@ class Base:
                 for halfstep in range(8):
                     for pin in range(4):
                         GPIO.output(control_pins_left[pin], halfstep_reverse[halfstep][pin])
-                    time.sleep(0.01)
+                    time.sleep(self.SPEED)
                 self.pos += 1
         self.off()
         
