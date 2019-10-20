@@ -37,9 +37,9 @@ halfstep_reverse = [
     ]
     
 class Base:
-    def __init__(self, pos):    
+    def __init__(self):    
     
-        self.pos = pos
+        self.pos = 0
         self.BOUND_LEFT = 400
         self.BOUND_RIGHT = 0
         self.SPEED = 0.002

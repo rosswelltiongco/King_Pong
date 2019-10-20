@@ -1,4 +1,4 @@
-class Cups:
+class Display:
     def __init__(self):
         self.cup_0 = "[0]"
         self.cup_1 = "[1]"
@@ -11,8 +11,11 @@ class Cups:
         self.cup_8 = "[8]"
         self.cup_9 = "[9]"
         
+        self.display_cups()
+        
 
     def remove_cup(self,remove_cup):
+            # todo: implement check to make sure cup isnt already gone
             if remove_cup == 0:
                 self.cup_0 = "   "
             elif remove_cup == 1:
@@ -36,37 +39,18 @@ class Cups:
             else:
                 pass
                 
-    def get_cups(self):
-        cups =  """   
-        {3} {2} {1} {0}
-          {6} {5} {4}
-            {8} {7}
-              {9}
+                
+    def display_cups(self):
+        cups =  """
+
+    ------ KING PONG ------
+    _______________________
+    |                     |
+    |   {3} {2} {1} {0}   |
+    |     {6} {5} {4}     |
+    |       {8} {7}       |
+    |         {9}         |
+    |_____________________|
         """.format(self.cup_0,self.cup_1,self.cup_2,self.cup_3,self.cup_4,self.cup_5,self.cup_6,self.cup_7,self.cup_8,self.cup_9)
         
-        return cups
-    
-def main():
-    cups = Cups()
-       
-    
-    
-    print(cups.get_cups())
-    while True:
-        
-        cup = int(raw_input("Enter cup"))
-        
-        go_in = raw_input("Did cup go in {0}".format(cup))
-        
-        
-        while go_in != 'y':
-            go_in = raw_input("Did cup go in {0}".format(cup))
-        print("cup went in, removing {0}".format(cup))
-        
-        
-        cups.remove_cup(cup)
-        
-        print(cups.get_cups())
-    
-main()
-
+        print(cups)
