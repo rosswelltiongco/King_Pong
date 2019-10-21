@@ -11,6 +11,18 @@ solenoid = Solenoid()
 base = Base()
 
 #     cup:  pos,pwm
+cups = {0: [ 20,57],
+        1: [150,57],
+        2: [260,57],
+        3: [360,57],
+        4: [ 85,54],
+        5: [195,54],
+        6: [310,54],
+        7: [150,50],
+        8: [260,50],
+        9: [195,48]}
+"""
+#     cup:  pos,pwm
 cups = {0: [ 20,48],
         1: [150,48],
         2: [260,48],
@@ -21,7 +33,7 @@ cups = {0: [ 20,48],
         7: [150,42],
         8: [260,42],
         9: [195,40]}
-
+"""
 def launch(pwm):    
     solenoid.block()
     fan.set_pwm(pwm)
@@ -37,12 +49,8 @@ def do_cup(cup):
     launch(pwm)
 
 def went_in(cup):
-    go_in = raw_input("Did cup go in {0}".format(cup))
-    """
-    while go_in != 'y':
-        go_in = raw_input("Did cup go in {0}".format(cup))
-    """
-    
+    go_in = raw_input("Did cup go in {0}? ".format(cup))
+        
     if go_in == 'y':
         return True
     else:
@@ -51,7 +59,7 @@ def went_in(cup):
 def main():    
 
     while 1:
-        chosen_cup = int(input("Choose cup"))
+        chosen_cup = int(input("Choose cup: "))
         do_cup(chosen_cup)
         
         while not went_in(chosen_cup):
