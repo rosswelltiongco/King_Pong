@@ -1,20 +1,30 @@
 #include "tm4c123gh6pm.h"
 
+#include "ADCSWTrigger.h"
+#include "PLL.h"
+
+
 void Led_Init();
 void B_Init();
 void Switch_Init();
+void set_L(int new_L);
 void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 void WaitForInterrupt(void);  // low power mode
 
 int main(void){    
+	unsigned long potentiometer, sensor1, sensor2;
 	DisableInterrupts();  // disable interrupts while initializing 
+	ADC_Init298();
+	PLL_Init();                           // 80 MHz
 	//Led_Init();         // output from PA5, SysTick interrupts
 	B_Init();
 	Switch_Init();        // arm PF4, PF0 for falling edge interrupts	
   EnableInterrupts();  // The grader uses interrupts
   while(1){
 		WaitForInterrupt(); // low power mode
+		//ADC_In298(&potentiometer, &sensor1, &sensor2); // sample AIN2(PE1), AIN9 (PE4), AIN8 (PE5)
+		ReadADCMedianFilter(&potentiometer, &sensor1, &sensor2);
   }
 }
 
@@ -98,7 +108,12 @@ void GPIOPortF_Handler(void){ // called on touch of either SW1 or SW2
     GPIO_PORTF_ICR_R = 0x10;  // acknowledge flag4
     if(L<72000) L = L+8000;   // speed up
   }
+	L = 8000; // hard code
   H = 80000-L; // constant period of 1ms, variable duty cycle
+}
+
+void set_L(int new_L){
+	L = new_L;
 }
 
 // Color    LED(s) PortF
