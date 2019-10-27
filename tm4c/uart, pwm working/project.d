@@ -1,0 +1,13 @@
+.\project.o: project.c
+.\project.o: FanController.h
+.\project.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\project.o: HAL.h
+.\project.o: HAL_PLL.h
+.\project.o: HAL_SysTick.h
+.\project.o: HAL_UART.h
+.\project.o: HAL_GPIO.h
+.\project.o: HAL_ADC.h
+.\project.o: HAL_PWM.h
+.\project.o: HAL_Timer.h
+.\project.o: HAL_SPI.h
+.\project.o: HAL_Flash.h

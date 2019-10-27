@@ -1,0 +1,180 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Project:</h2>
+C:\Users\Mark\Documents\Senior Design\InputOutput.uvproj
+Project File Date:  10/27/2019
+
+<h2>Output:</h2>
+Rebuild target 'project'
+compiling project.c...
+compiling Console.c...
+compiling Display.c...
+compiling FanController.c...
+src\FanController.c(20): warning:  #177-D: variable "controlSettings_" was declared but never referenced
+  static TemperatureSettings_t controlSettings_;
+src\FanController.c(23): warning:  #550-D: variable "pTempDisplaySwitch_" was set but never used
+  static volatile uint32_t* pTempDisplaySwitch_;
+src\FanController.c(27): warning:  #550-D: variable "pManualModeSwitch_" was set but never used
+  static volatile uint32_t* pManualModeSwitch_;
+src\FanController.c(28): warning:  #550-D: variable "pAutoModeSwitch_" was set but never used
+  static volatile uint32_t* pAutoModeSwitch_;
+src\FanController.c(155): warning:  #177-D: function "ReadSpeedPot" was declared but never referenced
+  static int ReadSpeedPot(void)
+src\FanController.c(251): warning:  #177-D: function "ManualFanSpeed" was declared but never referenced
+  static int ManualFanSpeed(int speedPot)
+src\FanController.c: 6 warnings, 0 errors
+compiling HAL_ADC.c...
+compiling HAL_Flash.c...
+compiling HAL_GPIO.c...
+src\HAL_GPIO.c(47): warning:  #144-D: a value of type "volatile unsigned long *" cannot be used to initialize an entity of type "const volatile uint32_t *"
+        GPIO_PORTA_DATA_BITS_R,
+src\HAL_GPIO.c(48): warning:  #144-D: a value of type "volatile unsigned long *" cannot be used to initialize an entity of type "const volatile uint32_t *"
+        GPIO_PORTB_DATA_BITS_R,
+src\HAL_GPIO.c(49): warning:  #144-D: a value of type "volatile unsigned long *" cannot be used to initialize an entity of type "const volatile uint32_t *"
+        GPIO_PORTC_DATA_BITS_R,
+src\HAL_GPIO.c(50): warning:  #144-D: a value of type "volatile unsigned long *" cannot be used to initialize an entity of type "const volatile uint32_t *"
+        GPIO_PORTD_DATA_BITS_R,
+src\HAL_GPIO.c(51): warning:  #144-D: a value of type "volatile unsigned long *" cannot be used to initialize an entity of type "const volatile uint32_t *"
+        GPIO_PORTE_DATA_BITS_R,
+src\HAL_GPIO.c(52): warning:  #144-D: a value of type "volatile unsigned long *" cannot be used to initialize an entity of type "const volatile uint32_t *"
+        GPIO_PORTF_DATA_BITS_R
+src\HAL_GPIO.c: 6 warnings, 0 errors
+compiling HAL_PLL.c...
+compiling HAL_PWM.c...
+compiling HAL_SPI.c...
+compiling HAL_SysTick.c...
+compiling HAL_Timer.c...
+compiling HAL_UART.c...
+compiling Strings.c...
+compiling Thermistor.c...
+linking...
+.\project.axf: Error: L6320W: Ignoring --entry command. Cannot find argument 'Reset_Handler'.
+.\project.axf: Warning: L6320W: Ignoring --first command. Cannot find argument '__Vectors'.
+Not enough information to list image symbols.
+Not enough information to list the image map.
+Finished: 2 information, 1 warning and 1 error messages.
+".\project.axf" - 1 Error(s), 13 Warning(s).
+Target not created
+</pre>
+</body>
+</html>
+roject.c" - 0 Error(s), 0 Warning(s).
+#177-D: variable "controlSettings_" was declared but never referenced
+  static TemperatureSettings_t controlSettings_;
+src\FanController.c(23): warning:  #550-D: variable "pTempDisplaySwitch_" was set but never used
+  static volatile uint32_t* pTempDisplaySwitch_;
+src\FanController.c(27): warning:  #550-D: variable "pManualModeSwitch_" was set but never used
+  static volatile uint32_t* pManualModeSwitch_;
+src\FanController.c(28): warning:  #550-D: variable "pAutoModeSwitch_" was set but never used
+  static volatile uint32_t* pAutoModeSwitch_;
+src\FanController.c(155): warning:  #177-D: function "ReadSpeedPot" was declared but never referenced
+  static int ReadSpeedPot(void)
+src\FanController.c(251): warning:  #177-D: function "ManualFanSpeed" was declared but never referenced
+  static int ManualFanSpeed(int speedPot)
+src\FanController.c: 6 warnings, 0 errors
+"src\FanController.c" - 0 Error(s), 6 Warning(s).
+compiling FanController.c...
+src\FanController.c(140): error:  #20: identifier "pTempDisplaySwitch_" is undefined
+        pTempDisplaySwitch_ = GPIO_GetBitBandIOAddress(pIOConfig->tempDisplaySwitch);
+src\FanController.c(142): error:  #20: identifier "pManualModeSwitch_" is undefined
+        pManualModeSwitch_ = GPIO_GetBitBandIOAddress(pIOConfig->manualModeSwitch);
+src\FanController.c(143): error:  #20: identifier "pAutoModeSwitch_" is undefined
+        pAutoModeSwitch_ = GPIO_GetBitBandIOAddress(pIOConfig->tempModeSwitch); 
+src\FanController.c(156): error:  #169: expected a declaration
+  {
+src\FanController.c(252): error:  #169: expected a declaration
+  {
+src\FanController.c(275): error:  #757: variable "pIOConfig_" is not a type name
+          PWM_SetDuty(pIOConfig_->pwm.module, pIOConfig_->pwm.channel, duty);
+src\FanController.c(275): error:  #18: expected a ")"
+          PWM_SetDuty(pIOConfig_->pwm.module, pIOConfig_->pwm.channel, duty);
+src\FanController.c(275): error:  #260-D: explicit type is missing ("int" assumed)
+          PWM_SetDuty(pIOConfig_->pwm.module, pIOConfig_->pwm.channel, duty);
+src\FanController.c(275): error:  #147: declaration is incompatible with "void PWM_SetDuty(PWMModule, PWMChannel, uint16_t)" (declared at line 56 of "src\HAL_PWM.h")
+          PWM_SetDuty(pIOConfig_->pwm.module, pIOConfig_->pwm.channel, duty);
+src\FanController.c(278): error:  #77-D: this declaration has no storage class or type specifier
+          *pFanRelay_ = 1;
+src\FanController.c(278): error:  #147: declaration is incompatible with "volatile uint32_t *pFanRelay_" (declared at line 31)
+          *pFanRelay_ = 1;
+src\FanController.c(278): error:  #144: a value of type "int" cannot be used to initialize an entity of type "int *"
+          *pFanRelay_ = 1;
+src\FanController.c(280): error:  #169: expected a declaration
+      }
+src\FanController.c(283): warning:  #12-D: parsing restarts here after previous syntax error
+      return (int)((percentage * 100.0f) + 0.5f);
+src\FanController.c(284): error:  #169: expected a declaration
+  }
+src\FanController.c(309): warning:  #12-D: parsing restarts here after previous syntax error
+                break;
+src\FanController.c(311): error:  #169: expected a declaration
+                case ROW2:
+src\FanController.c(314): warning:  #12-D: parsing restarts here after previous syntax error
+                                                percentage -= 0.01;
+src\FanController.c(316): error:  #169: expected a declaration
+                                else if (tachRPM_ < desiredRPM[1])
+src\FanController.c(319): error:  #169: expected a declaration
+                                break;
+src\FanController.c(321): error:  #169: expected a declaration
+                case ROW3:
+src\FanController.c(324): warning:  #12-D: parsing restarts here after previous syntax error
+                                                percentage -= 0.01;
+src\FanController.c(326): error:  #169: expected a declaration
+                                else if (tachRPM_ < desiredRPM[2])
+src\FanController.c(329): error:  #169: expected a declaration
+                                break;
+src\FanController.c(332): error:  #169: expected a declaration
+                case ROW4:
+src\FanController.c(335): warning:  #12-D: parsing restarts here after previous syntax error
+                                                percentage -= 0.01;
+src\FanController.c(337): error:  #169: expected a declaration
+                                else if (tachRPM_ < desiredRPM[3])
+src\FanController.c(340): error:  #169: expected a declaration
+                                break;
+src\FanController.c(342): error:  #169: expected a declaration
+                case OFF:
+src\FanController.c(346): warning:  #12-D: parsing restarts here after previous syntax error
+                        break;
+src\FanController.c(347): error:  #169: expected a declaration
+        }
+src\FanController.c(375): warning:  #12-D: parsing restarts here after previous syntax error
+        return (int)((percentage * 100.0f) + 0.5f);
+src\FanController.c(377): error:  #169: expected a declaration
+  }
+src\FanController.c(403): warning:  #12-D: parsing restarts here after previous syntax error
+                displayValue *= -1;
+src\FanController.c(404): error:  #169: expected a declaration
+        }
+src\FanController.c(407): warning:  #12-D: parsing restarts here after previous syntax error
+        Display_Update(displayValue);                   
+src\FanController.c(409): error:  #169: expected a declaration
+  }
+src\FanController.c(456): warning: At end of source:  #12-D: parsing restarts here after previous syntax error
+src\FanController.c(37): warning:  #550-D: variable "tachRPM_" was set but never used
+  static uint32_t tachRPM_;
+src\FanController.c(88): warning:  #177-D: function "InitHardware" was declared but never referenced
+  static int InitHardware(FanController_IOConfig_t* pIOConfig)
+src\FanController.c(173): warning:  #177-D: function "GetFanMode" was declared but never referenced
+  static FanMode_t GetFanMode(int row)
+src\FanController.c(193): warning:  #177-D: function "GetDisplayMode" was declared but never referenced
+  static DisplayMode_t GetDisplayMode(void)
+src\FanController.c(208): warning:  #177-D: function "SetFanSpeed" was declared but never referenced
+  static int SetFanSpeed(int rowNum)
+src\FanController.c: 15 warnings, 28 errors
+"src\FanController.c" - 28 Error(s), 15 Warning(s).
+compiling FanController.c...
+src\FanController.c(20): warning:  #177-D: variable "controlSettings_" was declared but never referenced
+  static TemperatureSettings_t controlSettings_;
+src\FanController.c(23): warning:  #550-D: variable "pTempDisplaySwitch_" was set but never used
+  static volatile uint32_t* pTempDisplaySwitch_;
+src\FanController.c(27): warning:  #550-D: variable "pManualModeSwitch_" was set but never used
+  static volatile uint32_t* pManualModeSwitch_;
+src\FanController.c(28): warning:  #550-D: variable "pAutoModeSwitch_" was set but never used
+  static volatile uint32_t* pAutoModeSwitch_;
+src\FanController.c(155): warning:  #177-D: function "ReadSpeedPot" was declared but never referenced
+  static int ReadSpeedPot(void)
+src\FanController.c(251): warning:  #177-D: function "ManualFanSpeed" was declared but never referenced
+  static int ManualFanSpeed(int speedPot)
+src\FanController.c: 6 warnings, 0 errors
+"src\FanController.c" - 0 Error(s), 6 Warning(s).

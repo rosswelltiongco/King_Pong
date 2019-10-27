@@ -1,0 +1,13 @@
+.\display.o: src\Display.c
+.\display.o: src\Display.h
+.\display.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
+.\display.o: src\HAL.h
+.\display.o: src\HAL_PLL.h
+.\display.o: src\HAL_SysTick.h
+.\display.o: src\HAL_UART.h
+.\display.o: src\HAL_GPIO.h
+.\display.o: src\HAL_ADC.h
+.\display.o: src\HAL_PWM.h
+.\display.o: src\HAL_Timer.h
+.\display.o: src\HAL_SPI.h
+.\display.o: src\HAL_Flash.h

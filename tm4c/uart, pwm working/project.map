@@ -1,0 +1,375 @@
+ARM Linker, 5.03 [Build 76] [MDK-ARM Lite]
+
+==============================================================================
+
+Section Cross References
+
+    project.o(i.main) refers to fancontroller.o(i.FanController_Run) for FanController_Run
+    project.o(i.main) refers to project.o(.constdata) for .constdata
+    console.o(i.Console_HandleInput) refers to console.o(i.PrintCurrentScreen) for PrintCurrentScreen
+    console.o(i.Console_HandleInput) refers to console.o(i.HandleMainScreen) for HandleMainScreen
+    console.o(i.Console_HandleInput) refers to console.o(i.HandleScaleScreen) for HandleScaleScreen
+    console.o(i.Console_HandleInput) refers to console.o(i.HandleCalibrationScreen) for HandleCalibrationScreen
+    console.o(i.Console_HandleInput) refers to console.o(i.HandleRangeScreen) for HandleRangeScreen
+    console.o(i.Console_HandleInput) refers to console.o(i.HandleLowLimitScreen) for HandleLowLimitScreen
+    console.o(i.Console_HandleInput) refers to console.o(i.HandleHighLimitScreen) for HandleHighLimitScreen
+    console.o(i.Console_HandleInput) refers to hal_flash.o(i.Flash_Write) for Flash_Write
+    console.o(i.Console_HandleInput) refers to hal_uart.o(i.UART_WriteChar) for UART_WriteChar
+    console.o(i.Console_HandleInput) refers to console.o(.data) for currentScreen_
+    console.o(i.Console_HandleInput) refers to console.o(.bss) for buffer
+    console.o(i.Console_Init) refers to console.o(.data) for uart_
+    console.o(i.HandleCalibrationScreen) refers to strings.o(i.strlen) for strlen
+    console.o(i.HandleCalibrationScreen) refers to strings.o(i.atoi) for atoi
+    console.o(i.HandleHighLimitScreen) refers to strings.o(i.strlen) for strlen
+    console.o(i.HandleHighLimitScreen) refers to strings.o(i.atoi) for atoi
+    console.o(i.HandleLowLimitScreen) refers to strings.o(i.strlen) for strlen
+    console.o(i.HandleLowLimitScreen) refers to strings.o(i.atoi) for atoi
+    console.o(i.HandleMainScreen) refers to strings.o(i.atoi) for atoi
+    console.o(i.HandleMainScreen) refers to console.o(.data) for currentScreen_
+    console.o(i.HandleRangeScreen) refers to strings.o(i.atoi) for atoi
+    console.o(i.HandleRangeScreen) refers to console.o(.data) for currentScreen_
+    console.o(i.HandleScaleScreen) refers to strings.o(i.atoi) for atoi
+    console.o(i.PrintCalibrationScreen) refers to strings.o(i.itoa) for itoa
+    console.o(i.PrintCalibrationScreen) refers to hal_uart.o(i.UART_WriteString) for UART_WriteString
+    console.o(i.PrintCalibrationScreen) refers to console.o(.data) for uart_
+    console.o(i.PrintCalibrationScreen) refers to console.o(.constdata) for .constdata
+    console.o(i.PrintCurrentScreen) refers to console.o(i.PrintMainScreen) for PrintMainScreen
+    console.o(i.PrintCurrentScreen) refers to console.o(i.PrintScaleScreen) for PrintScaleScreen
+    console.o(i.PrintCurrentScreen) refers to console.o(i.PrintCalibrationScreen) for PrintCalibrationScreen
+    console.o(i.PrintCurrentScreen) refers to console.o(i.PrintRangeScreen) for PrintRangeScreen
+    console.o(i.PrintCurrentScreen) refers to console.o(i.PrintLowLimitScreen) for PrintLowLimitScreen
+    console.o(i.PrintCurrentScreen) refers to console.o(i.PrintHighLimitScreen) for PrintHighLimitScreen
+    console.o(i.PrintCurrentScreen) refers to console.o(.data) for currentScreen_
+    console.o(i.PrintHighLimitScreen) refers to strings.o(i.itoa) for itoa
+    console.o(i.PrintHighLimitScreen) refers to hal_uart.o(i.UART_WriteString) for UART_WriteString
+    console.o(i.PrintHighLimitScreen) refers to console.o(.data) for uart_
+    console.o(i.PrintHighLimitScreen) refers to console.o(.constdata) for .constdata
+    console.o(i.PrintLowLimitScreen) refers to strings.o(i.itoa) for itoa
+    console.o(i.PrintLowLimitScreen) refers to hal_uart.o(i.UART_WriteString) for UART_WriteString
+    console.o(i.PrintLowLimitScreen) refers to console.o(.data) for uart_
+    console.o(i.PrintLowLimitScreen) refers to console.o(.constdata) for .constdata
+    console.o(i.PrintMainScreen) refers to hal_uart.o(i.UART_WriteString) for UART_WriteString
+    console.o(i.PrintMainScreen) refers to console.o(.data) for uart_
+    console.o(i.PrintRangeScreen) refers to strings.o(i.itoa) for itoa
+    console.o(i.PrintRangeScreen) refers to hal_uart.o(i.UART_WriteString) for UART_WriteString
+    console.o(i.PrintRangeScreen) refers to console.o(.data) for uart_
+    console.o(i.PrintRangeScreen) refers to console.o(.constdata) for .constdata
+    console.o(i.PrintScaleScreen) refers to hal_uart.o(i.UART_WriteString) for UART_WriteString
+    console.o(i.PrintScaleScreen) refers to hal_uart.o(i.UART_WriteChar) for UART_WriteChar
+    console.o(i.PrintScaleScreen) refers to console.o(.data) for uart_
+    display.o(i.Display_Blank) refers to display.o(.data) for displayValue
+    display.o(i.Display_Initialize) refers to hal_spi.o(i.SPI_Enable) for SPI_Enable
+    display.o(i.Display_Initialize) refers to hal_timer.o(i.Timer_EnableTimerPeriodic) for Timer_EnableTimerPeriodic
+    display.o(i.Display_Initialize) refers to display.o(.data) for ssiModule_
+    display.o(i.Display_Initialize) refers to display.o(i.TimerCallback) for TimerCallback
+    display.o(i.Display_Update) refers to display.o(.data) for displayValue
+    display.o(i.TimerCallback) refers to display.o(i.ExtractDigits) for ExtractDigits
+    display.o(i.TimerCallback) refers to hal_spi.o(i.SPI_Write) for SPI_Write
+    display.o(i.TimerCallback) refers to display.o(.data) for activeDigit
+    display.o(i.TimerCallback) refers to display.o(.bss) for digitValues
+    fancontroller.o(i.FanController_Run) refers to fancontroller.o(i.InitHardware) for InitHardware
+    fancontroller.o(i.FanController_Run) refers to fancontroller.o(i.ErrHandler) for ErrHandler
+    fancontroller.o(i.FanController_Run) refers to fancontroller.o(i.Scan) for Scan
+    fancontroller.o(i.FanController_Run) refers to hal_systick.o(i.SysTick_Wait10ms) for SysTick_Wait10ms
+    fancontroller.o(i.FanController_Run) refers to fancontroller.o(.data) for pIOConfig_
+    fancontroller.o(i.GetDisplayMode) refers to fancontroller.o(.data) for pTachDisplaySwitch_
+    fancontroller.o(i.InitHardware) refers to hal_pll.o(i.PLL_Init80MHz) for PLL_Init80MHz
+    fancontroller.o(i.InitHardware) refers to hal_gpio.o(i.GPIO_EnableDI) for GPIO_EnableDI
+    fancontroller.o(i.InitHardware) refers to hal_gpio.o(i.GPIO_EnableDO) for GPIO_EnableDO
+    fancontroller.o(i.InitHardware) refers to hal_adc.o(i.ADC_Enable) for ADC_Enable
+    fancontroller.o(i.InitHardware) refers to hal_pwm.o(i.PWM_Enable) for PWM_Enable
+    fancontroller.o(i.InitHardware) refers to hal_timer.o(i.Timer_EnableTimerPeriodic) for Timer_EnableTimerPeriodic
+    fancontroller.o(i.InitHardware) refers to hal_timer.o(i.Timer_EnableInputCounter) for Timer_EnableInputCounter
+    fancontroller.o(i.InitHardware) refers to hal_timer.o(i.Timer_ResetInputCounter) for Timer_ResetInputCounter
+    fancontroller.o(i.InitHardware) refers to hal_systick.o(i.SysTick_Init) for SysTick_Init
+    fancontroller.o(i.InitHardware) refers to hal_flash.o(i.Flash_Enable) for Flash_Enable
+    fancontroller.o(i.InitHardware) refers to display.o(i.Display_Initialize) for Display_Initialize
+    fancontroller.o(i.InitHardware) refers to console.o(i.Console_Init) for Console_Init
+    fancontroller.o(i.InitHardware) refers to hal_gpio.o(i.GPIO_GetBitBandIOAddress) for GPIO_GetBitBandIOAddress
+    fancontroller.o(i.InitHardware) refers to fancontroller.o(i.RpmTimerCallback) for RpmTimerCallback
+    fancontroller.o(i.InitHardware) refers to fancontroller.o(.data) for pTempDisplaySwitch_
+    fancontroller.o(i.ManualFanSpeed) refers to fflt_clz.o(x$fpl$fflt) for __aeabi_i2f
+    fancontroller.o(i.ManualFanSpeed) refers to fdiv.o(x$fpl$fdiv) for __aeabi_fdiv
+    fancontroller.o(i.ManualFanSpeed) refers to faddsub_clz.o(x$fpl$fadd) for __aeabi_fadd
+    fancontroller.o(i.ManualFanSpeed) refers to fleqf.o(x$fpl$fleqf) for __aeabi_cfcmple
+    fancontroller.o(i.ManualFanSpeed) refers to frleqf.o(x$fpl$frleqf) for __aeabi_cfrcmple
+    fancontroller.o(i.ManualFanSpeed) refers to fmul.o(x$fpl$fmul) for __aeabi_fmul
+    fancontroller.o(i.ManualFanSpeed) refers to ffixu.o(x$fpl$ffixu) for __aeabi_f2uiz
+    fancontroller.o(i.ManualFanSpeed) refers to hal_pwm.o(i.PWM_SetDuty) for PWM_SetDuty
+    fancontroller.o(i.ManualFanSpeed) refers to ffix.o(x$fpl$ffix) for __aeabi_f2iz
+    fancontroller.o(i.ManualFanSpeed) refers to fancontroller.o(.data) for percentage
+    fancontroller.o(i.ReadSpeedPot) refers to hal_adc.o(i.ADC_Sample) for ADC_Sample
+    fancontroller.o(i.ReadSpeedPot) refers to fflt_clz.o(x$fpl$fflt) for __aeabi_i2f
+    fancontroller.o(i.ReadSpeedPot) refers to fmul.o(x$fpl$fmul) for __aeabi_fmul
+    fancontroller.o(i.ReadSpeedPot) refers to ffix.o(x$fpl$ffix) for __aeabi_f2iz
+    fancontroller.o(i.ReadSpeedPot) refers to fancontroller.o(.data) for pIOConfig_
+    fancontroller.o(i.RpmTimerCallback) refers to hal_timer.o(i.Timer_ReadCounterValue) for Timer_ReadCounterValue
+    fancontroller.o(i.RpmTimerCallback) refers to hal_timer.o(i.Timer_ResetInputCounter) for Timer_ResetInputCounter
+    fancontroller.o(i.RpmTimerCallback) refers to fancontroller.o(.data) for pIOConfig_
+    fancontroller.o(i.RunFanSpeed) refers to fancontroller.o(i.SetFanSpeed) for SetFanSpeed
+    fancontroller.o(i.RunFanSpeed) refers to fancontroller.o(i.GetFanMode) for GetFanMode
+    fancontroller.o(i.RunFanSpeed) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
+    fancontroller.o(i.RunFanSpeed) refers to daddsub_clz.o(x$fpl$dsub) for __aeabi_dsub
+    fancontroller.o(i.RunFanSpeed) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    fancontroller.o(i.RunFanSpeed) refers to daddsub_clz.o(x$fpl$dadd) for __aeabi_dadd
+    fancontroller.o(i.RunFanSpeed) refers to fleqf.o(x$fpl$fleqf) for __aeabi_cfcmple
+    fancontroller.o(i.RunFanSpeed) refers to frleqf.o(x$fpl$frleqf) for __aeabi_cfrcmple
+    fancontroller.o(i.RunFanSpeed) refers to fmul.o(x$fpl$fmul) for __aeabi_fmul
+    fancontroller.o(i.RunFanSpeed) refers to ffixu.o(x$fpl$ffixu) for __aeabi_f2uiz
+    fancontroller.o(i.RunFanSpeed) refers to hal_pwm.o(i.PWM_SetDuty) for PWM_SetDuty
+    fancontroller.o(i.RunFanSpeed) refers to faddsub_clz.o(x$fpl$fadd) for __aeabi_fadd
+    fancontroller.o(i.RunFanSpeed) refers to ffix.o(x$fpl$ffix) for __aeabi_f2iz
+    fancontroller.o(i.RunFanSpeed) refers to fancontroller.o(.constdata) for .constdata
+    fancontroller.o(i.RunFanSpeed) refers to fancontroller.o(.data) for tachRPM_
+    fancontroller.o(i.Scan) refers to fancontroller.o(i.RunFanSpeed) for RunFanSpeed
+    fancontroller.o(i.Scan) refers to fancontroller.o(i.UpdateDisplay) for UpdateDisplay
+    fancontroller.o(i.Scan) refers to fancontroller.o(.data) for tachRPM_
+    fancontroller.o(i.SetFanSpeed) refers to fleqf.o(x$fpl$fleqf) for __aeabi_cfcmple
+    fancontroller.o(i.SetFanSpeed) refers to frleqf.o(x$fpl$frleqf) for __aeabi_cfrcmple
+    fancontroller.o(i.SetFanSpeed) refers to fmul.o(x$fpl$fmul) for __aeabi_fmul
+    fancontroller.o(i.SetFanSpeed) refers to ffixu.o(x$fpl$ffixu) for __aeabi_f2uiz
+    fancontroller.o(i.SetFanSpeed) refers to hal_pwm.o(i.PWM_SetDuty) for PWM_SetDuty
+    fancontroller.o(i.SetFanSpeed) refers to faddsub_clz.o(x$fpl$fadd) for __aeabi_fadd
+    fancontroller.o(i.SetFanSpeed) refers to ffix.o(x$fpl$ffix) for __aeabi_f2iz
+    fancontroller.o(i.SetFanSpeed) refers to fancontroller.o(.data) for percentage
+    fancontroller.o(i.UpdateDisplay) refers to fancontroller.o(i.GetDisplayMode) for GetDisplayMode
+    fancontroller.o(i.UpdateDisplay) refers to display.o(i.Display_Update) for Display_Update
+    hal_adc.o(i.ADC_Enable) refers to hal_gpio.o(i.GPIO_EnableAltAnalog) for GPIO_EnableAltAnalog
+    hal_adc.o(i.ADC_Enable) refers to abort.o(.text) for abort
+    hal_adc.o(i.ADC_Enable) refers to hal_adc.o(.data) for ADCBaseAddress
+    hal_adc.o(i.ADC_Sample) refers to hal_adc.o(.data) for ADCBaseAddress
+    hal_flash.o(i.Flash_Enable) refers to hal_flash.o(.data) for flashKey_
+    hal_flash.o(i.Flash_Erase) refers to hal_flash.o(.data) for flashKey_
+    hal_flash.o(i.Flash_Write) refers to hal_flash.o(i.Flash_Erase) for Flash_Erase
+    hal_flash.o(i.Flash_Write) refers to hal_flash.o(.data) for flashKey_
+    hal_gpio.o(i.GPIO_EnableAltAnalog) refers to hal_gpio.o(i.GPIO_InitPort) for GPIO_InitPort
+    hal_gpio.o(i.GPIO_EnableAltAnalog) refers to hal_gpio.o(.data) for GPIOBaseAddress
+    hal_gpio.o(i.GPIO_EnableAltDigital) refers to hal_gpio.o(i.GPIO_InitPort) for GPIO_InitPort
+    hal_gpio.o(i.GPIO_EnableAltDigital) refers to hal_gpio.o(.data) for GPIOBaseAddress
+    hal_gpio.o(i.GPIO_EnableDI) refers to hal_gpio.o(i.GPIO_InitPort) for GPIO_InitPort
+    hal_gpio.o(i.GPIO_EnableDI) refers to hal_gpio.o(.data) for GPIOBaseAddress
+    hal_gpio.o(i.GPIO_EnableDO) refers to hal_gpio.o(i.GPIO_InitPort) for GPIO_InitPort
+    hal_gpio.o(i.GPIO_EnableDO) refers to hal_gpio.o(.data) for GPIOBaseAddress
+    hal_gpio.o(i.GPIO_GetBitBandIOAddress) refers to hal_gpio.o(i.GetPinNumber) for GetPinNumber
+    hal_gpio.o(i.GPIO_GetBitBandIOAddress) refers to hal_gpio.o(.data) for GPIOBaseAddress
+    hal_pll.o(i.PLL_GetBusClockFreq) refers to hal_pll.o(.data) for busClockFreq_
+    hal_pll.o(i.PLL_Init80MHz) refers to hal_pll.o(.data) for busClockFreq_
+    hal_pwm.o(i.PWM_Enable) refers to hal_gpio.o(i.GPIO_EnableAltDigital) for GPIO_EnableAltDigital
+    hal_pwm.o(i.PWM_Enable) refers to abort.o(.text) for abort
+    hal_pwm.o(i.PWM_Enable) refers to hal_pwm.o(.data) for PWMBaseAddress
+    hal_pwm.o(i.PWM_SetDuty) refers to abort.o(.text) for abort
+    hal_pwm.o(i.PWM_SetDuty) refers to hal_pwm.o(.data) for PWMBaseAddress
+    hal_spi.o(i.SPI_Enable) refers to hal_pll.o(i.PLL_GetBusClockFreq) for PLL_GetBusClockFreq
+    hal_spi.o(i.SPI_Enable) refers to hal_gpio.o(i.GPIO_EnableAltDigital) for GPIO_EnableAltDigital
+    hal_spi.o(i.SPI_Enable) refers to hal_spi.o(.data) for SSIBaseAddress
+    hal_spi.o(i.SPI_Write) refers to hal_spi.o(.data) for SSIBaseAddress
+    hal_systick.o(i.SysTick_Init) refers to hal_pll.o(i.PLL_GetBusClockFreq) for PLL_GetBusClockFreq
+    hal_systick.o(i.SysTick_Init) refers to dflt_clz.o(x$fpl$dfltu) for __aeabi_ui2d
+    hal_systick.o(i.SysTick_Init) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
+    hal_systick.o(i.SysTick_Init) refers to dfixu.o(x$fpl$dfixu) for __aeabi_d2uiz
+    hal_systick.o(i.SysTick_Init) refers to hal_systick.o(.data) for NumTicksPer10ms
+    hal_systick.o(i.SysTick_Wait10ms) refers to hal_systick.o(i.SysTick_Wait) for SysTick_Wait
+    hal_systick.o(i.SysTick_Wait10ms) refers to hal_systick.o(.data) for NumTicksPer10ms
+    hal_systick.o(i.SysTick_Wait10us) refers to hal_systick.o(i.SysTick_Wait) for SysTick_Wait
+    hal_systick.o(i.SysTick_Wait10us) refers to hal_systick.o(.data) for NumTicksPer10us
+    hal_timer.o(i.Timer_EnableInputCounter) refers to hal_gpio.o(i.GPIO_EnableAltDigital) for GPIO_EnableAltDigital
+    hal_timer.o(i.Timer_EnableInputCounter) refers to abort.o(.text) for abort
+    hal_timer.o(i.Timer_EnableTimerPeriodic) refers to abort.o(.text) for abort
+    hal_timer.o(i.Timer_EnableTimerPeriodic) refers to hal_timer.o(.data) for TimerBaseAddress
+    hal_timer.o(i.Timer_ReadCounterValue) refers to hal_timer.o(.data) for TimerBaseAddress
+    hal_timer.o(i.Timer_ResetInputCounter) refers to hal_timer.o(.data) for TimerBaseAddress
+    hal_timer.o(i.Timer_Timer0Handler) refers to hal_timer.o(i.TimerHandler) for TimerHandler
+    hal_timer.o(i.Timer_Timer0Handler) refers to hal_timer.o(.data) for TimerBaseAddress
+    hal_timer.o(i.Timer_Timer1Handler) refers to hal_timer.o(i.TimerHandler) for TimerHandler
+    hal_timer.o(i.Timer_Timer1Handler) refers to hal_timer.o(.data) for TimerBaseAddress
+    hal_timer.o(i.Timer_Timer2Handler) refers to hal_timer.o(i.TimerHandler) for TimerHandler
+    hal_timer.o(i.Timer_Timer2Handler) refers to hal_timer.o(.data) for TimerBaseAddress
+    hal_uart.o(i.UART5Handler) refers to hal_uart.o(.data) for UARTBaseAddress
+    hal_uart.o(i.UART_Enable) refers to hal_pll.o(i.PLL_GetBusClockFreq) for PLL_GetBusClockFreq
+    hal_uart.o(i.UART_Enable) refers to hal_gpio.o(i.GPIO_InitPort) for GPIO_InitPort
+    hal_uart.o(i.UART_Enable) refers to dflt_clz.o(x$fpl$dfltu) for __aeabi_ui2d
+    hal_uart.o(i.UART_Enable) refers to daddsub_clz.o(x$fpl$dadd) for __aeabi_dadd
+    hal_uart.o(i.UART_Enable) refers to dfixu.o(x$fpl$dfixu) for __aeabi_d2uiz
+    hal_uart.o(i.UART_Enable) refers to hal_gpio.o(i.GPIO_EnableAltDigital) for GPIO_EnableAltDigital
+    hal_uart.o(i.UART_Enable) refers to hal_uart.o(.data) for UARTBaseAddress
+    hal_uart.o(i.UART_EnableRxInterrupt) refers to hal_uart.o(.data) for UARTBaseAddress
+    hal_uart.o(i.UART_ReadChar) refers to hal_uart.o(.data) for UARTBaseAddress
+    hal_uart.o(i.UART_WriteChar) refers to hal_uart.o(.data) for UARTBaseAddress
+    hal_uart.o(i.UART_WriteString) refers to hal_uart.o(i.UART_WriteChar) for UART_WriteChar
+    strings.o(i.atoi) refers to strings.o(i.isspace) for isspace
+    strings.o(i.atoi) refers to strings.o(i.isdigit) for isdigit
+    strings.o(i.itoa) refers to strings.o(i.reverse) for reverse
+    strings.o(i.reverse) refers to strings.o(i.strlen) for strlen
+    thermistor.o(i.Therm_GetTemperature) refers to thermistor.o(i.Search) for Search
+    thermistor.o(i.Therm_GetTemperature) refers to thermistor.o(.constdata) for TempData_Fahrenheit
+    abort.o(.text) refers to defsig_abrt_outer.o(.text) for __rt_SIGABRT
+    abort.o(.text) refers (Weak) to libshutdown.o(.ARM.Collect$$libshutdown$$00000000) for __rt_lib_shutdown
+    abort.o(.text) refers to sys_exit.o(.text) for _sys_exit
+    __main.o(!!!main) refers to rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
+    d2f.o(x$fpl$d2f) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    d2f.o(x$fpl$d2f) refers to fretinf.o(x$fpl$fretinf) for __fpl_fretinf
+    d2f.o(x$fpl$d2f) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
+    daddsub_clz.o(x$fpl$dadd) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    daddsub_clz.o(x$fpl$dadd) refers to daddsub_clz.o(x$fpl$dsub) for _dsub1
+    daddsub_clz.o(x$fpl$dadd) refers to dretinf.o(x$fpl$dretinf) for __fpl_dretinf
+    daddsub_clz.o(x$fpl$dadd) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
+    daddsub_clz.o(x$fpl$drsb) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    daddsub_clz.o(x$fpl$drsb) refers to daddsub_clz.o(x$fpl$dadd) for _dadd1
+    daddsub_clz.o(x$fpl$drsb) refers to daddsub_clz.o(x$fpl$dsub) for _dsub1
+    daddsub_clz.o(x$fpl$dsub) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    daddsub_clz.o(x$fpl$dsub) refers to daddsub_clz.o(x$fpl$dadd) for _dadd1
+    daddsub_clz.o(x$fpl$dsub) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
+    dfixu.o(x$fpl$dfixu) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    dfixu.o(x$fpl$dfixu) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
+    dfixu.o(x$fpl$dfixur) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    dfixu.o(x$fpl$dfixur) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
+    dflt_clz.o(x$fpl$dfltu) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    dflt_clz.o(x$fpl$dflt) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    dflt_clz.o(x$fpl$dfltn) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    dmul.o(x$fpl$dmul) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    dmul.o(x$fpl$dmul) refers to dretinf.o(x$fpl$dretinf) for __fpl_dretinf
+    dmul.o(x$fpl$dmul) refers to dnaninf.o(x$fpl$dnaninf) for __fpl_dnaninf
+    f2d.o(x$fpl$f2d) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    f2d.o(x$fpl$f2d) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    f2d.o(x$fpl$f2d) refers to dretinf.o(x$fpl$dretinf) for __fpl_dretinf
+    faddsub_clz.o(x$fpl$fadd) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    faddsub_clz.o(x$fpl$fadd) refers to faddsub_clz.o(x$fpl$fsub) for _fsub1
+    faddsub_clz.o(x$fpl$fadd) refers to fretinf.o(x$fpl$fretinf) for __fpl_fretinf
+    faddsub_clz.o(x$fpl$fadd) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    faddsub_clz.o(x$fpl$frsb) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    faddsub_clz.o(x$fpl$frsb) refers to faddsub_clz.o(x$fpl$fadd) for _fadd1
+    faddsub_clz.o(x$fpl$frsb) refers to faddsub_clz.o(x$fpl$fsub) for _fsub1
+    faddsub_clz.o(x$fpl$fsub) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    faddsub_clz.o(x$fpl$fsub) refers to faddsub_clz.o(x$fpl$fadd) for _fadd1
+    faddsub_clz.o(x$fpl$fsub) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    fdiv.o(x$fpl$frdiv) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fdiv.o(x$fpl$frdiv) refers to fdiv.o(x$fpl$fdiv) for _fdiv1
+    fdiv.o(x$fpl$fdiv) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fdiv.o(x$fpl$fdiv) refers to fretinf.o(x$fpl$fretinf) for __fpl_fretinf
+    fdiv.o(x$fpl$fdiv) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    ffix.o(x$fpl$ffix) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    ffix.o(x$fpl$ffix) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    ffix.o(x$fpl$ffixr) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    ffix.o(x$fpl$ffixr) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    ffixu.o(x$fpl$ffixu) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    ffixu.o(x$fpl$ffixu) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    ffixu.o(x$fpl$ffixur) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    ffixu.o(x$fpl$ffixur) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    fflt_clz.o(x$fpl$ffltu) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fflt_clz.o(x$fpl$fflt) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fflt_clz.o(x$fpl$ffltn) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fleqf.o(x$fpl$fleqf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fleqf.o(x$fpl$fleqf) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    fleqf.o(x$fpl$fleqf) refers to fcmpi.o(x$fpl$fcmpinf) for __fpl_fcmp_Inf
+    fmul.o(x$fpl$fmul) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fmul.o(x$fpl$fmul) refers to fretinf.o(x$fpl$fretinf) for __fpl_fretinf
+    fmul.o(x$fpl$fmul) refers to fnaninf.o(x$fpl$fnaninf) for __fpl_fnaninf
+    frleqf.o(x$fpl$frleqf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    frleqf.o(x$fpl$frleqf) refers to fleqf.o(x$fpl$fleqf) for __fpl_fcmple_InfNaN
+    sys_exit.o(.text) refers (Special) to use_no_semi.o(.text) for __I$use$semihosting
+    sys_exit.o(.text) refers (Special) to indicate_semi.o(.text) for __semihosting_library_function
+    rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to rtentry2.o(.ARM.Collect$$rtentry$$0000000A) for __rt_entry_li
+    rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to rtentry2.o(.ARM.Collect$$rtentry$$0000000D) for __rt_entry_main
+    rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to rtentry2.o(.ARM.Collect$$rtentry$$0000000C) for __rt_entry_postli_1
+    rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to rtentry2.o(.ARM.Collect$$rtentry$$00000009) for __rt_entry_postsh_1
+    rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to rtentry2.o(.ARM.Collect$$rtentry$$00000002) for __rt_entry_presh_1
+    rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to rtentry4.o(.ARM.Collect$$rtentry$$00000004) for __rt_entry_sh
+    defsig_abrt_outer.o(.text) refers to defsig_abrt_inner.o(.text) for __rt_SIGABRT_inner
+    defsig_abrt_outer.o(.text) refers to defsig_exit.o(.text) for __sig_exit
+    defsig_abrt_formal.o(.text) refers to rt_raise.o(.text) for __rt_raise
+    dnaninf.o(x$fpl$dnaninf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    dretinf.o(x$fpl$dretinf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fcmpi.o(x$fpl$fcmpinf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fnaninf.o(x$fpl$fnaninf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    fretinf.o(x$fpl$fretinf) refers (Special) to usenofp.o(x$fpl$usenofp) for __I$use$fp
+    rtentry2.o(.ARM.Collect$$rtentry$$00000008) refers to boardinit2.o(.text) for _platform_post_stackheap_init
+    rtentry2.o(.ARM.Collect$$rtentry$$0000000A) refers to libinit.o(.ARM.Collect$$libinit$$00000000) for __rt_lib_init
+    rtentry2.o(.ARM.Collect$$rtentry$$0000000B) refers to boardinit3.o(.text) for _platform_post_lib_init
+    rtentry2.o(.ARM.Collect$$rtentry$$0000000D) refers to project.o(i.main) for main
+    rtentry2.o(.ARM.Collect$$rtentry$$0000000D) refers to exit.o(.text) for exit
+    rtentry2.o(.ARM.exidx) refers to rtentry2.o(.ARM.Collect$$rtentry$$00000001) for .ARM.Collect$$rtentry$$00000001
+    rtentry2.o(.ARM.exidx) refers to rtentry2.o(.ARM.Collect$$rtentry$$00000008) for .ARM.Collect$$rtentry$$00000008
+    rtentry2.o(.ARM.exidx) refers to rtentry2.o(.ARM.Collect$$rtentry$$0000000A) for .ARM.Collect$$rtentry$$0000000A
+    rtentry2.o(.ARM.exidx) refers to rtentry2.o(.ARM.Collect$$rtentry$$0000000B) for .ARM.Collect$$rtentry$$0000000B
+    rtentry2.o(.ARM.exidx) refers to rtentry2.o(.ARM.Collect$$rtentry$$0000000D) for .ARM.Collect$$rtentry$$0000000D
+    rtentry4.o(.ARM.Collect$$rtentry$$00000004) refers to sys_stackheap_outer.o(.text) for __user_setup_stackheap
+    rtentry4.o(.ARM.exidx) refers to rtentry4.o(.ARM.Collect$$rtentry$$00000004) for .ARM.Collect$$rtentry$$00000004
+    rt_raise.o(.text) refers to __raise.o(.text) for __raise
+    rt_raise.o(.text) refers to sys_exit.o(.text) for _sys_exit
+    defsig_exit.o(.text) refers to sys_exit.o(.text) for _sys_exit
+    defsig_abrt_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    sys_stackheap_outer.o(.text) refers to libspace.o(.text) for __user_perproc_libspace
+    sys_stackheap_outer.o(.text) refers to sys_stackheap.o(.text) for __user_initial_stackheap
+    exit.o(.text) refers to rtexit.o(.ARM.Collect$$rtexit$$00000000) for __rt_exit
+    __raise.o(.text) refers to defsig.o(CL$$defsig) for __default_signal_handler
+    defsig_general.o(.text) refers to sys_wrch.o(.text) for _ttywrch
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000002C) for __rt_lib_init_alloca_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000002A) for __rt_lib_init_argv_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000019) for __rt_lib_init_atexit_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000001F) for __rt_lib_init_clock_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000030) for __rt_lib_init_cpp_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000002E) for __rt_lib_init_exceptions_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000002) for __rt_lib_init_fp_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000001D) for __rt_lib_init_fp_trap_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000021) for __rt_lib_init_getenv_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000008) for __rt_lib_init_heap_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000000F) for __rt_lib_init_lc_collate_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000011) for __rt_lib_init_lc_ctype_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000013) for __rt_lib_init_lc_monetary_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000015) for __rt_lib_init_lc_numeric_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000017) for __rt_lib_init_lc_time_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000000C) for __rt_lib_init_rand_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000031) for __rt_lib_init_return
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000001B) for __rt_lib_init_signal_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$00000023) for __rt_lib_init_stdio_1
+    libinit.o(.ARM.Collect$$libinit$$00000000) refers (Special) to libinit2.o(.ARM.Collect$$libinit$$0000000A) for __rt_lib_init_user_alloc_1
+    sys_wrch.o(.text) refers (Special) to use_no_semi.o(.text) for __I$use$semihosting
+    sys_wrch.o(.text) refers (Special) to indicate_semi.o(.text) for __semihosting_library_function
+    libspace.o(.text) refers to libspace.o(.bss) for __libspace_start
+    sys_stackheap.o(.text) refers (Special) to indicate_semi.o(.text) for __semihosting_library_function
+    sys_stackheap.o(.text) refers to use_no_semi.o(.text) for __I$use$semihosting
+    rtexit.o(.ARM.Collect$$rtexit$$00000000) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000004) for __rt_exit_exit
+    rtexit.o(.ARM.Collect$$rtexit$$00000000) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000003) for __rt_exit_ls
+    rtexit.o(.ARM.Collect$$rtexit$$00000000) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000002) for __rt_exit_prels_1
+    rtexit.o(.ARM.exidx) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000004) for __rt_exit_exit
+    rtexit.o(.ARM.exidx) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000003) for __rt_exit_ls
+    rtexit.o(.ARM.exidx) refers (Special) to rtexit2.o(.ARM.Collect$$rtexit$$00000002) for __rt_exit_prels_1
+    rtexit.o(.ARM.exidx) refers to rtexit.o(.ARM.Collect$$rtexit$$00000000) for .ARM.Collect$$rtexit$$00000000
+    defsig.o(CL$$defsig) refers to defsig_abrt_inner.o(.text) for __rt_SIGABRT_inner
+    defsig.o(CL$$defsig) refers to defsig_rtmem_inner.o(.text) for __rt_SIGRTMEM_inner
+    libinit2.o(.ARM.Collect$$libinit$$0000000E) refers to libinit2.o(.ARM.Collect$$libinit$$0000000D) for .ARM.Collect$$libinit$$0000000D
+    libinit2.o(.ARM.Collect$$libinit$$00000010) refers to libinit2.o(.ARM.Collect$$libinit$$0000000D) for .ARM.Collect$$libinit$$0000000D
+    libinit2.o(.ARM.Collect$$libinit$$00000012) refers to libinit2.o(.ARM.Collect$$libinit$$0000000D) for .ARM.Collect$$libinit$$0000000D
+    libinit2.o(.ARM.Collect$$libinit$$00000014) refers to libinit2.o(.ARM.Collect$$libinit$$0000000D) for .ARM.Collect$$libinit$$0000000D
+    libinit2.o(.ARM.Collect$$libinit$$00000016) refers to libinit2.o(.ARM.Collect$$libinit$$0000000D) for .ARM.Collect$$libinit$$0000000D
+    libinit2.o(.ARM.Collect$$libinit$$00000024) refers to argv_veneer.o(.emb_text) for __ARM_argv_veneer
+    libinit2.o(.ARM.Collect$$libinit$$00000025) refers to argv_veneer.o(.emb_text) for __ARM_argv_veneer
+    rtexit2.o(.ARM.Collect$$rtexit$$00000003) refers to libshutdown.o(.ARM.Collect$$libshutdown$$00000000) for __rt_lib_shutdown
+    rtexit2.o(.ARM.Collect$$rtexit$$00000004) refers to sys_exit.o(.text) for _sys_exit
+    rtexit2.o(.ARM.exidx) refers to rtexit2.o(.ARM.Collect$$rtexit$$00000001) for .ARM.Collect$$rtexit$$00000001
+    rtexit2.o(.ARM.exidx) refers to rtexit2.o(.ARM.Collect$$rtexit$$00000003) for .ARM.Collect$$rtexit$$00000003
+    rtexit2.o(.ARM.exidx) refers to rtexit2.o(.ARM.Collect$$rtexit$$00000004) for .ARM.Collect$$rtexit$$00000004
+    defsig_fpe_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_rtred_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_rtmem_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_stak_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_pvfn_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_cppl_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_segv_inner.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    defsig_other.o(.text) refers to defsig_general.o(.text) for __default_signal_display
+    argv_veneer.o(.emb_text) refers to no_argv.o(.text) for __ARM_get_argv
+    _get_argv_nomalloc.o(.text) refers (Special) to hrguard.o(.text) for __heap_region$guard
+    _get_argv_nomalloc.o(.text) refers to defsig_rtmem_outer.o(.text) for __rt_SIGRTMEM
+    _get_argv_nomalloc.o(.text) refers to sys_command.o(.text) for _sys_command_string
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000006) for __rt_lib_shutdown_fp_trap_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$0000000E) for __rt_lib_shutdown_heap_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$0000000F) for __rt_lib_shutdown_return
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000009) for __rt_lib_shutdown_signal_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$00000003) for __rt_lib_shutdown_stdio_1
+    libshutdown.o(.ARM.Collect$$libshutdown$$00000000) refers (Special) to libshutdown2.o(.ARM.Collect$$libshutdown$$0000000B) for __rt_lib_shutdown_user_alloc_1
+    sys_command.o(.text) refers (Special) to use_no_semi.o(.text) for __I$use$semihosting
+    sys_command.o(.text) refers (Special) to indicate_semi.o(.text) for __semihosting_library_function
+    defsig_rtmem_outer.o(.text) refers to defsig_rtmem_inner.o(.text) for __rt_SIGRTMEM_inner
+    defsig_rtmem_outer.o(.text) refers to defsig_exit.o(.text) for __sig_exit
+    defsig_rtmem_formal.o(.text) refers to rt_raise.o(.text) for __rt_raise
+
