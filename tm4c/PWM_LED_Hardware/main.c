@@ -113,6 +113,9 @@ void Switch_Init(void){
   NVIC_PRI7_R = (NVIC_PRI7_R&0xFF00FFFF)|0x00400000; // (g) priority 2
   NVIC_EN0_R = 0x40000000;      // (h) enable interrupt 30 in NVIC
 }
+
+
+/*
 // L range: 8000,16000,24000,32000,40000,48000,56000,64000,72000
 // power:   10%    20%   30%   40%   50%   60%   70%   80%   90%
 void GPIOPortF_Handler(void){ // called on touch of either SW1 or SW2
@@ -125,4 +128,31 @@ void GPIOPortF_Handler(void){ // called on touch of either SW1 or SW2
     if(L<72000) L = L+8000;   // speed up
   }
   H = 80000-L; // constant period of 1ms, variable duty cycle
+}
+
+
+*/
+
+
+/* -----------------------      Function Definition     --------------------- */
+void PortFIntHandler(void){
+    // The ISR for GPIO PortF Interrupt Handling
+    GPIOIntClear(GPIO_PORTF_BASE , GPIO_INT_PIN_4 | GPIO_INT_PIN_0);
+
+    // If SW1(PF4) is pressed then reduce the duty cycle
+    if(ROM_GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_4 | GPIO_PIN_0)== GPIO_PIN_0){
+        ui8Adjust--;
+        if (ui8Adjust < 50){
+            ui8Adjust = 50;
+        }
+        ROM_PWMPulseWidthSet(PWM1_BASE, PWM_OUT_0, ui8Adjust * ui32Period / 1000);
+    }
+    // If SW2(PW0) is pressed then increase the duty cycle
+    if(ROM_GPIOPinRead(GPIO_PORTF_BASE, GPIO_PIN_4 | GPIO_PIN_0)== GPIO_PIN_4){
+        ui8Adjust++;
+        if (ui8Adjust > 100){
+            ui8Adjust = 100;
+        }
+        ROM_PWMPulseWidthSet(PWM1_BASE, PWM_OUT_0, ui8Adjust * ui32Period / 1000);
+    }
 }

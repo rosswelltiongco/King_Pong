@@ -455,36 +455,6 @@
               <FileType>5</FileType>
               <FilePath>.\PWM.h</FilePath>
             </File>
-            <File>
-              <FileName>FanController.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\FanController.c</FilePath>
-            </File>
-            <File>
-              <FileName>FanController.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\FanController.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_GPIO.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\HAL_GPIO.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_SysTick.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\HAL_SysTick.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_Timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\HAL_Timer.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

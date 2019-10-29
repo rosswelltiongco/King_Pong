@@ -21,7 +21,8 @@ unsigned long H,L;
 
 int main(void){    
 	//unsigned long potentiometer, sensor1, sensor2;
-	unsigned char KEY = 'n';
+	//unsigned char KEY = 'n';
+	unsigned long number_KEY;
 	DisableInterrupts();  // disable interrupts while initializing 
 	ADC_Init298();
 	PLL_Init();           // 80 MHz
@@ -33,21 +34,21 @@ int main(void){
 	L = 10;
   while(1)
 	{
-		KEY = UART_InChar();
-	
-		if(KEY=='1'){			
+		//KEY = UART_InChar();
+		number_KEY = UART_InUDec();
+		if(number_KEY== 10000){			
 			L = 5000;
 			LED = GREEN;
 		}
-		else if(KEY=='2'){	
+		else if(number_KEY==2000){	
 			L = 6000;
 			LED = RED;
 		}
-		else if(KEY=='3'){	
+		else if(number_KEY==5000){	
 			L = 7000;
 			LED = BLUE;
 		}
-		else if(KEY=='4'){	
+		else if(number_KEY==7000){	
 			L = 10;
 			LED = OFF;
 		}

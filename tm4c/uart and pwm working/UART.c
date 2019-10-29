@@ -86,3 +86,41 @@ void UART_OutString(unsigned char str[]){
 		i++;
 	}
 }
+
+
+//------------UART_InUDec------------ 
+// InUDec accepts ASCII input in unsigned decimal format 
+//     and converts to a 32-bit unsigned number 
+//     valid range is 0 to 4294967295 (2^32-1) 
+// Input: none // Output: 32-bit unsigned number 
+// If you enter a number above 4294967295, it will return an incorrect value 
+// Backspace will remove last digit typed 
+unsigned long UART_InUDec(void){ 
+	unsigned long number=0, length=0; 
+	char character;   
+	character = UART_InChar();   
+	
+	
+	while(character != CR){ 
+		// accepts until <enter> is typed 
+		// The next line checks that the input is a digit, 0-9. 
+		// If the character is not 0-9, it is ignored and not echoed     
+		if((character>='0') && (character<='9')) 
+			{       
+				number = 10*number+(character-'0');   
+				// this line overflows if above 4294967295       
+				length++;       
+				UART_OutChar(character);     
+				} 
+			// If the input is a backspace, then the return number is 
+				// changed and a backspace is outputted to the screen     
+		else if((character==BS) && length)
+			{       
+				number /= 10;       
+				length--;       
+				UART_OutChar(character);     
+			}     
+		character = UART_InChar();   
+		}   
+		return number; 
+}
