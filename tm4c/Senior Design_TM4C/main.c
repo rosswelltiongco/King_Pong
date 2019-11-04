@@ -103,19 +103,14 @@ void LED_Init(void){ volatile unsigned long delay;
 
 
 void SysTick_Handler(void){
-		COUNT++;
+	RPM = (PULSE_COUNT/2)*60;
+	COUNT = 0;
 }
 
 
 void GPIOPortB_Handler(void){
 	PULSE = GPIO_PORTD_RIS_R&PB2;	// Check Obstacle Sensor PB2
 	// Logic in MAIN Function:
-	if(PULSE==ACTIVE){
-		if(COUNT!=0){ 	
-			PULSE_COUNT = COUNT;
-			COUNT = 0;
-		}
-	}
-	RPM = (PULSE_COUNT/2)*60;
+	if(PULSE==ACTIVE)	PULSE_COUNT++;
 	GPIO_PORTD_ICR_R = PB2; 				// acknowledge flag2
 }
