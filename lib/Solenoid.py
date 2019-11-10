@@ -3,11 +3,11 @@ import RPi.GPIO as GPIO
 class Solenoid:
     # V+ - Diode
     
-    def __init__(self):
+    def __init__(self,pin):
         """
         Initialize code
         """
-        self.pin = 19
+        self.pin = pin
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD) #this cmd is for user to specify pin as number of the board.
         GPIO.setup(self.pin, GPIO.OUT)

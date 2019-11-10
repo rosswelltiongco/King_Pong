@@ -1,10 +1,18 @@
 import RPi.GPIO as GPIO
+#from lib.Base import *
+from lib.Solenoid import*
+#from lib.Display import*
 import time
-//TODO: find the BOARD port number. 
-GPIO.setmode(GPIO.BCM)
+import serial
 
-TRIG = 23 
-ECHO = 24
+#display = Display()
+load = Solenoid(21)
+shoot = Solenoid(19)
+#base = Base()
+GPIO.setmode(GPIO.BOARD)
+
+TRIG = 40
+ECHO = 38
 
 print "Distance Measurement In Progress"
 
