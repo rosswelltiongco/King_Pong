@@ -4,18 +4,20 @@ import numpy as np
 import os
 
 import RPi.GPIO as GPIO
-from lib.Base import*
+#from lib.Base import*
 import time
 import serial
+import Base
 
 os.system("sudo modprobe bcm2835-v4l2")
 
 
-base = Base()
+#base = Base()
+
 class Camera:
     
     def __init__(self):
-        base.step_left(100)
+        #base.step_left(100)
 
         self.cap = cv2.VideoCapture(0)
         
@@ -69,10 +71,15 @@ class Camera:
             (_,contours,hierarchy)=cv2.findContours(red,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
             
             for pic, contour in enumerate(contours):
-                area = cv2.contourArea(contour)
+                area = int(cv2.contourArea(contour))
                 
-                if(area>300):
-                    
+                # Only look forreactable area > 40000
+                # Detect all cups at first then reference array
+                # Record based on the smallest area of the rectangle
+                # largest  closest  = 60,000
+                # smallest furthest = 40,000
+                if (area > 40000):
+                    print("area = ", area)
                     x,y,w,h = cv2.boundingRect(contour) 
                     img = cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
                     cv2.putText(img,"RED color",(x,y),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255))
@@ -86,13 +93,17 @@ class Camera:
             cv2.imshow('res',res)
             
             if(w == biggest):
+                print("x = ", x, "y = ", y, "w = ", w, "h = ", h)
                 bc =  x + .5 * w
+                print("center = ", bc)
             
             
             if (bc > center+2):
-                base.step_right(1)   
+                #base.step_right(1)
+                print("right")
             elif (bc < center-2):
-                base.step_left(1)
+                #base.step_left(1)
+                print("left")
             else:
                 break
             
@@ -103,3 +114,6 @@ class Camera:
                 break
           
         return bc
+
+camera = Camera()
+camera.scan_cups()

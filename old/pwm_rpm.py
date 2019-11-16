@@ -1,11 +1,8 @@
 # Import for all
 import RPi.GPIO as GPIO
-import fan
-import solenoid
 import time
-import wiringpi
+#import wiringpi
 import rpm
-import PID
 
 wiringpi.wiringPiSetupGpio()
 wiringpi.pwmSetMode(0) # PWM_MODE_MS = 0
@@ -33,7 +30,9 @@ def graph(pwm_values,rpm_values):
 
 
 def main():
-    
+    rpm_val = int(rpm.get_rpm()) // 10
+    #time.sleep(1)
+    """
     fan_obj = fan.Fan()
     solenoid_obj = solenoid.Solenoid()
     fan_obj.start_fan(0)
@@ -74,7 +73,7 @@ def main():
             
         fan_obj.start_fan(count)
         print("PWM: {0}\tRPM: {1}".format(count,rpm_val))
-        
+    """
     GPIO.cleanup()
 main() # run main
 
