@@ -5,19 +5,22 @@ import os
 
 import RPi.GPIO as GPIO
 #from lib.Base import*
+from Base import *
 import time
 import serial
-import Base
+#import Base
 
 os.system("sudo modprobe bcm2835-v4l2")
+cup_cascade = cv2.CascadeClassifier("/home/pi/Desktop/cups.xml")
 
 
-#base = Base()
 
+#bc=0
 class Camera:
     
     def __init__(self):
-        #base.step_left(100)
+        self.base = Base()
+        self.base.step_left(174)
 
         self.cap = cv2.VideoCapture(0)
         
@@ -41,15 +44,16 @@ class Camera:
         y = 0
         h = 0
         center = 310
-
+        bc=0
+        #print(self.cap.isOpened())
         while(1):
             _, img = self.cap.read()
             
             #converting frame(img i.e BGR) to HSV (hue-saturation-value)
-            img = cv2.flip(img,flipCode=-1)
             biggest =0
             hsv=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-            
+            gray_scale = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
             
             l_h = cv2.getTrackbarPos("L - H","Trackbars")
             l_s = cv2.getTrackbarPos("L - S","Trackbars")
@@ -58,40 +62,50 @@ class Camera:
             u_s = cv2.getTrackbarPos("U - S","Trackbars")
             u_v = cv2.getTrackbarPos("U - V","Trackbars")
 
-            red_lower = np.array([152,36,0],np.uint8)
+            red_lower = np.array([170,200,10],np.uint8)
             red_upper = np.array([179,255,255],np.uint8)
             
-            red=cv2.inRange(hsv, red_lower, red_upper)
+            
+            red_l = np.array([0,200,10],np.uint8)
+            red_u = np.array([10,255,255],np.uint8)
+            
+            red = cv2.inRange(hsv, red_lower, red_upper)
+            red2 = cv2.inRange(hsv,red_l,red_u)
             #Morphological transformation, Dilation     
             kernal = np.ones((5 ,5), "uint8")
 
-            red=cv2.dilate(red, kernal)
+            red=cv2.dilate(red, kernal) + cv2.dilate(red2,kernal)
             res=cv2.bitwise_and(img, img, mask = red)
             #Tracking the Red Color
             (_,contours,hierarchy)=cv2.findContours(red,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
             
-            for pic, contour in enumerate(contours):
-                area = int(cv2.contourArea(contour))
-                
-                # Only look forreactable area > 40000
-                # Detect all cups at first then reference array
-                # Record based on the smallest area of the rectangle
-                # largest  closest  = 60,000
-                # smallest furthest = 40,000
-                if (area > 40000):
-                    print("area = ", area)
-                    x,y,w,h = cv2.boundingRect(contour) 
-                    img = cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
-                    cv2.putText(img,"RED color",(x,y),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255))
-                    if w >= biggest & w < 640:
-                        biggest = w 
-            cv2.imshow("Color Tracking",img)
-            mask = cv2.inRange(hsv, red_lower, red_upper)
-            res = cv2.bitwise_and(img,img, mask= mask)
+            cup = cup_cascade.detectMultiScale(gray_scale)
 
+            for pic, contour in enumerate(contours):
+                area = cv2.contourArea(contour)
+                
+                if(area >20000):
+                    
+                    x,y,w,h = cv2.boundingRect(contour)
+                    for a,b,c,d in cup:
+                        if a  <= x+w:
+                            
+                            print("red = " ,x  ," cup = " ,a -c )
+                            img = cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
+                            cv2.putText(img,"red party cup target",(x,y),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255))
+                            if w >= biggest & w < 640:
+                                biggest = w
+                                bc = x + w * .5
+                        
+            img = cv2.flip(img,flipCode = -1)
+            cv2.imshow("Color Tracking",img)
+            mask = cv2.inRange(hsv, red_lower, red_upper)  + cv2.inRange(hsv,red_l,red_u)
+            res = cv2.bitwise_and(img,img, mask= mask)
+            
+            mask = cv2.flip(mask,flipCode = -1)
+            res = cv2.flip(res,flipCode = -1)
             cv2.imshow('mask',mask)
             cv2.imshow('res',res)
-            
             if(w == biggest):
                 print("x = ", x, "y = ", y, "w = ", w, "h = ", h)
                 bc =  x + .5 * w
@@ -99,12 +113,13 @@ class Camera:
             
             
             if (bc > center+2):
-                #base.step_right(1)
-                print("right")
-            elif (bc < center-2):
-                #base.step_left(1)
+                self.base.step_left(1)
                 print("left")
+            elif (bc < center-2):
+                self.base.step_right(1)
+                print("right")
             else:
+                print("--------CENTERED-------")
                 break
             
 

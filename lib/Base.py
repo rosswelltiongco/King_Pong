@@ -47,13 +47,13 @@ class Base:
         GPIO.setup(22,GPIO.IN)
         
         self.on()
-        """
+        
         while(GPIO.input(LimitSwitchUp)==0): # 90 degrees
             for halfstep in range(8):
                 for pin in range(4):
                     GPIO.output(control_pins_left[pin], halfstep_forward[halfstep][pin])
                 time.sleep(self.SPEED)
-        """
+        
         self.off()
         
     def step_right(self, steps):
@@ -118,3 +118,4 @@ class Base:
         else:
             while self.pos > target:
                 self.step_right(1)
+
