@@ -13,3 +13,5 @@
 	Author website: http://www.geekfactory.mx
 	Author e-mail: ruben at geekfactory dot mx
  */
+ 
+float PID(float set_point, float PV);

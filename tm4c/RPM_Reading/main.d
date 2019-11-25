@@ -4,6 +4,7 @@
 .\main.o: PWM.h
 .\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stdint.h
 .\main.o: PLL.h
+.\main.o: PID.h
 .\main.o: SysTick.h
 .\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stdio.h
 .\main.o: C:\Keil\ARM\ARMCC\bin\..\include\stdlib.h

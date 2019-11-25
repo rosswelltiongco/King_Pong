@@ -2,6 +2,7 @@
 #include "UART.h"
 #include "PWM.h"
 #include "PLL.h"
+#include "PID.h"
 #include "SysTick.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,24 +29,30 @@ uint8_t toggle;
 uint16_t COUNT_RPM, RPM;
 bool RESET;
 
-uint16_t current_RPM, desired_RPM, current_PWM;
+uint16_t current_RPM, desired_RPM, current_PWM, PWM;
+
+
+
 signed int sum;
 float error;
 float kp = 0.001;
 
+float PV;
+float sp;
+
 int main(void){    
-	unsigned char KEY;
-	unsigned int key;
+	//unsigned char KEY;
 	DisableInterrupts();  // Disable interrupts while initializing 
 	PLL_Init();           // 50 MHz
 	SysTick_Init(16000000);
 	LED_Init(); 
 	UART_Init(); 
 	Tach_Init();
-	PWM0A_Init(25000,15000);
+	PWM = 15000;
+	PWM0A_Init(25000,PWM);
   EnableInterrupts();  
 	RESET=false;
-	COUNT_RPM=0; RPM=0; KEY = 0; key = 0;
+	COUNT_RPM=0; RPM=0;
 	
 	desired_RPM = 10000;
   while(1)
@@ -63,7 +70,13 @@ int main(void){
 				LED = BLUE;
 			}
 			systick = 0;
-			UART_OutUDec((60*(unsigned long)COUNT_RPM)/2);
+			
+			current_RPM = (60*(unsigned long)COUNT_RPM)/2;
+			
+			PWM += (PID((float)15000,(float)current_RPM));
+			PWM0A_Duty(PWM);
+
+			UART_OutUDec(current_RPM);
 			UART_OutChar(0x0A);
 			UART_OutChar(0x0D);
 			COUNT_RPM = 0;
