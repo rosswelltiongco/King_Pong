@@ -475,6 +475,11 @@
               <FileType>5</FileType>
               <FilePath>.\PID.h</FilePath>
             </File>
+            <File>
+              <FileName>UART_Pi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\UART_Pi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

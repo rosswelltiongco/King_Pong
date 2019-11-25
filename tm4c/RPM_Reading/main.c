@@ -1,5 +1,6 @@
 #include "tm4c123gh6pm.h"
 #include "UART.h"
+#include "UART_Pi.h"
 #include "PWM.h"
 #include "PLL.h"
 #include "PID.h"
@@ -14,7 +15,7 @@ void DisableInterrupts(void); // Disable interrupts
 void EnableInterrupts(void);  // Enable interrupts
 void WaitForInterrupt(void);  // low power mode
 void SysTick_Handler(void);
-unsigned long systick;
+unsigned long systick, UART;
 // COLORS of LED:
 #define LED  (*((volatile unsigned long *)0x400253FC))	
 #define RED 	      0x02
@@ -29,7 +30,7 @@ uint8_t toggle;
 uint16_t COUNT_RPM, RPM;
 bool RESET;
 
-uint16_t current_RPM, desired_RPM, current_PWM, PWM;
+uint16_t current_RPM, desired_RPM=10000, current_PWM, PWM;
 
 
 
@@ -38,7 +39,7 @@ float error;
 float kp = 0.001;
 
 float PV;
-float sp;
+unsigned char cup;
 
 int main(void){    
 	//unsigned char KEY;
@@ -46,7 +47,8 @@ int main(void){
 	PLL_Init();           // 50 MHz
 	SysTick_Init(16000000);
 	LED_Init(); 
-	UART_Init(); 
+	UART0_Init();  // Realterm
+	UART1_Init();  // Raspberry Pi
 	Tach_Init();
 	PWM = 15000;
 	PWM0A_Init(25000,PWM);
@@ -57,6 +59,46 @@ int main(void){
 	desired_RPM = 10000;
   while(1)
 	{
+		
+		if(UART > 80)
+		{
+			cup = UART0_InChar();
+			switch(cup)
+			{
+				case '1': 
+					desired_RPM=10000;
+					break;
+				case '2': 
+					desired_RPM=12000;
+					break;
+				case '3': 
+					desired_RPM=15000;
+					break;
+				case '4': 
+					desired_RPM=16000;
+					break;
+				case '5': 
+					desired_RPM=14000;
+					break;
+				case '6': 
+					desired_RPM=9000;
+					break;
+				case '7': 
+					desired_RPM=4000;
+					break;
+				case '8': 
+					desired_RPM=5000;
+					break;
+				case '9': 
+					desired_RPM=18000;
+					break;
+				default:
+					desired_RPM=20000;
+					break;
+			}
+			UART = 0;
+		}
+			
 		if(systick > 5) //check for 1sec to have passed
 		{
 			if(toggle)
@@ -73,12 +115,16 @@ int main(void){
 			
 			current_RPM = (60*(unsigned long)COUNT_RPM)/2;
 			
-			PWM += (PID((float)15000,(float)current_RPM));
+			PWM += (PID((float)desired_RPM,(float)current_RPM));
 			PWM0A_Duty(PWM);
 
-			UART_OutUDec(current_RPM);
-			UART_OutChar(0x0A);
-			UART_OutChar(0x0D);
+			UART1_OutUDec(current_RPM);
+			UART1_OutChar(0x0A);
+			UART1_OutChar(0x0D);
+			
+			UART0_OutUDec(current_RPM);
+			UART0_OutChar(0x0A);
+			UART0_OutChar(0x0D);
 			COUNT_RPM = 0;
 		}
 			
@@ -110,5 +156,5 @@ void GPIOPortD_Handler(void){
 
 void SysTick_Handler(void){
 	systick++;
-	
+	UART++;
 }

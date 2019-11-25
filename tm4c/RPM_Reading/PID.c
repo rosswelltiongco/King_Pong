@@ -7,9 +7,20 @@
 //			To Operate Correctly, The Arguments Must Never Be Below 0 or Above 1
 
 //These Coefficients need to be tuned/adjusted for the desired response of the system
+
+
+
+
+//-----------------------------------------------------------------------------------
+// working K values for now. 
 #define Kp 0.50 /* Coefficient of Proportional (Values 0 to 1)*/
 #define Ki 0.15 /* Coefficient of Integral (Values 0 to 1)*/
 //#define Kd 0.01 /* Coefficient of Derivative (Values 0 to 1)*/
+//------------------------------------------------------------------------------------
+
+
+
+
 
 //SP = SetPoint, the desired operating point, i.e. Position/Velocity/etc...
 //PV = ProcessVariable, the feedback from the Plant/System, i.e. DistanceSensor/RPMs/etc...

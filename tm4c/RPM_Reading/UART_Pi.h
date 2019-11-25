@@ -1,4 +1,4 @@
-// UART.h
+// UART_Pi.h
 // Runs on TM4C123 or LM4F120
 // Lab 11 involves switching this from UART1 to UART0.
 //                 switching from PC5,PC4 to PA1,PA0
@@ -39,26 +39,26 @@
 // 8 bit word length, no parity bits, one stop bit, FIFOs enabled
 // Input: none
 // Output: none
-void UART0_Init(void);
+void UART1_Init(void);
 
 //------------UART_InChar------------
 // Wait for new serial port input
 // Input: none
 // Output: ASCII code for key typed
-unsigned char UART0_InChar(void);
+unsigned char UART1_InChar(void);
 
 //------------UART_InCharNonBlocking------------
 // Get oldest serial port input and return immediately
 // if there is no data.
 // Input: none
 // Output: ASCII code for key typed or 0 if no character
-unsigned char UART0_InCharNonBlocking(void);
+unsigned char UART1_InCharNonBlocking(void);
 
 //------------UART_OutChar------------
 // Output 8-bit to serial port
 // Input: letter is an 8-bit ASCII character to be transferred
 // Output: none
-void UART0_OutChar(unsigned char data);
+void UART1_OutChar(unsigned char data);
 
 //------------UART_InUDec------------
 // InUDec accepts ASCII input in unsigned decimal format
@@ -68,13 +68,13 @@ void UART0_OutChar(unsigned char data);
 // Output: 32-bit unsigned number
 // If you enter a number above 4294967295, it will return an incorrect value
 // Backspace will remove last digit typed
-unsigned long UART0_InUDec(void);
+unsigned long UART1_InUDec(void);
 
 //------------UART_OutString------------
 // Output String (NULL termination)
 // Input: pointer to a NULL-terminated string to be transferred
 // Output: none
-void UART0_OutString(unsigned char buffer[]);
+void UART1_OutString(unsigned char buffer[]);
 
 
 //-----------------------UART_ConvertUDec-----------------------
@@ -88,14 +88,14 @@ void UART0_OutString(unsigned char buffer[]);
 //  102 to " 102 " 
 // 2210 to "2210 "
 //10000 to "**** "  any value larger than 9999 converted to "**** "
-void UART0_ConvertUDec(unsigned long n);
+void UART1_ConvertUDec(unsigned long n);
 
 //-----------------------UART_OutUDec-----------------------
 // Output a 32-bit number in unsigned decimal format
 // Input: 32-bit number to be transferred
 // Output: none
 // Fixed format 4 digits, one space after, null termination
-void UART0_OutUDec(unsigned long n);
+void UART1_OutUDec(unsigned long n);
 
 //-----------------------UART_ConvertDistance-----------------------
 // Converts a 32-bit distance into an ASCII string
@@ -108,11 +108,11 @@ void UART0_OutUDec(unsigned long n);
 //  102 to "0.102 cm" 
 // 2210 to "2.210 cm"
 //10000 to "*.*** cm"  any value larger than 9999 converted to "*.*** cm"
-void UART0_ConvertDistance(unsigned long n);
+void UART1_ConvertDistance(unsigned long n);
 
 //-----------------------UART_OutDistance-----------------------
 // Output a 32-bit number in unsigned decimal fixed-point format
 // Input: 32-bit number to be transferred (resolution 0.001cm)
 // Output: none
 // Fixed format 1 digit, point, 3 digits, space, units, null termination
-void UART0_OutDistance(unsigned long n);
+void UART1_OutDistance(unsigned long n);
