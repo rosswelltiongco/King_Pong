@@ -28,19 +28,9 @@ while True:
     print (received_data)
     time.sleep(0.1)
     """
-    time.sleep(0.5)
+    time.sleep(.5)
     received_data = ser.read()
     print (received_data)
-    time.sleep(0.5)
-    if received_data == '1':
-        print("Cup 1")
-    elif received_data == '2':
-        print("Cup 2")
-    elif received_data == '3':
-        print("Cup 3")
-    elif received_data == '4':
-        print("Cup 4")
-    else:
-        print("nothing")
+    #time.sleep(0.5)
     
     

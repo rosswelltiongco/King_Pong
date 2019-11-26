@@ -1,30 +1,20 @@
+#importing modules
 import RPi.GPIO as GPIO
-#from lib.Base import *
-from lib.Solenoid import*
-#from lib.Display import*
+import cv2   
+import numpy as np
+import os
 import time
 import serial
 
-#display = Display()
-load = Solenoid(21)
-shoot = Solenoid(19)
-#base = Base()
+from lib.Base import*
+from lib.Display import*
+from lib.Camera import*
+from lib.Sensor import*
+#from lib.Solenoid import*
 
-ser = serial.Serial ("/dev/ttyS0", 57600 )    #Open port with baud rate
-
-"""
-#     cup:  pos,pwm
-cups = {0: [ 20,57],
-        1: [150,57],
-        2: [260,57],
-        3: [360,57],
-        4: [ 85,54],
-        5: [195,54],
-        6: [310,54],
-        7: [150,50],
-        8: [260,50],
-        9: [195,48]}
-"""
+camera = Camera()
+sensor = Sensor()
+#ser = serial.Serial ("/dev/ttyS0", 57600 )    #Open port with baud rate
 
 
 def launch():
@@ -48,13 +38,7 @@ def launch():
     time.sleep(2) # Follow through
     #close solenoid and turn fan off 
     shoot.block()
-
-#def do_cup(cup):
-    #pos = cups[cup][0]
-    #base.go_to(pos)
-    #if(cup <= 3 
-    #launch()
-
+    
 def went_in(cup):
     go_in = raw_input("Did cup go in {0}? ".format(cup))
         
@@ -62,35 +46,54 @@ def went_in(cup):
         return True
     else:
         return False
-    
-    
-def send_speed():
-    ser.write(cup)                          #transmit data serially
-    #Should print out "Bye!"
-    #time.sleep(5)
-    received_data = ser.read()              #read serial port
-    time.sleep(1)
-    data_left = ser.inWaiting()             #check for remaining byte
-    received_data += ser.read(data_left)
-    print (received_data)      
-    time.sleep(0.1)
-    
-def main():    
 
+"""
+#     cup:  pos,pwm
+cups = {0: [ 20,57],
+        1: [150,57],
+        2: [260,57],
+        3: [360,57],
+        4: [ 85,54],
+        5: [195,54],
+        6: [310,54],
+        7: [150,50],
+        8: [260,50],
+        9: [195,48]}
+"""
+
+
+def main():
     while 1:
-        launch()
-        """
-        chosen_cup = int(input("Choose cup: "))
-        do_cup(chosen_cup)
+        #time.sleep(1)
+        # Collect the center of the cup, in x axis
+        # Collect the distance of the cup once aligned, in y axis
+        midpoint = camera.scan_cups()
+        distance = sensor.get_distance()
+        #print("  y = ", distance)
+        print("x = ", midpoint, "  y = ", distance)
         
-        while not went_in(chosen_cup):
-            do_cup(chosen_cup)
         
-        display.remove_cup(chosen_cup)
-        display.display_cups()
-        """
-                    
-       
-    GPIO.cleanup()
-    
+        
+        
+    GPIO.cleanup(), 
 main()
+
+
+
+
+
+
+
+
+'''
+        while True:
+            ser.write(input('Enter'))                  #transmit data serially
+            #Should print out "Bye!"
+            #time.sleep(5)
+            received_data = ser.read()              #read serial port
+            time.sleep(1)
+            data_left = ser.inWaiting()             #check for remaining byte
+            received_data += ser.read(data_left)
+            print (received_data)      
+            time.sleep(0.1)
+'''

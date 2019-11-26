@@ -111,4 +111,3 @@ class Camera:
 
 camera = Camera()
 camera.scan_cups()
-
