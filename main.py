@@ -6,8 +6,8 @@ import os
 import time
 import serial
 
-from lib.Base import*
-from lib.Display import*
+#from lib.Base import*
+#from lib.Display import*
 from lib.Camera import*
 from lib.Sensor import*
 #from lib.Solenoid import*
@@ -15,6 +15,7 @@ from lib.Sensor import*
 camera = Camera()
 sensor = Sensor()
 #ser = serial.Serial ("/dev/ttyS0", 57600 )    #Open port with baud rate
+ser = serial.Serial("/dev/ttyS0", 57600)    #Open port with baud rate
 
 
 def launch():
@@ -27,6 +28,7 @@ def launch():
     #send_speed(cup)
     # allow for fan startup
     time.sleep(2)
+    ser.write(raw_input('enter'))                  #transmit data serially
     #load ball
     load.release()
     time.sleep(.15)
