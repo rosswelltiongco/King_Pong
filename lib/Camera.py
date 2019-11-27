@@ -4,9 +4,12 @@ import numpy as np
 import os
 
 import RPi.GPIO as GPIO
-from Base import *
+#from Base import * #work when test in class
+from lib.Base import*      #works when test in main
+
 import time
 import serial
+#import Base
 
 os.system("sudo modprobe bcm2835-v4l2")
 cup_cascade = cv2.CascadeClassifier("/home/pi/Desktop/cups.xml")
@@ -30,18 +33,13 @@ class Camera:
         while(1):
             _, img = self.cap.read()
             
+            
+            
             #converting frame(img i.e BGR) to HSV (hue-saturation-value)
             biggest =0
             hsv=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
             gray_scale = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
-            
-            l_h = cv2.getTrackbarPos("L - H","Trackbars")
-            l_s = cv2.getTrackbarPos("L - S","Trackbars")
-            l_v = cv2.getTrackbarPos("L - V","Trackbars")
-            u_h = cv2.getTrackbarPos("U - H","Trackbars")
-            u_s = cv2.getTrackbarPos("U - S","Trackbars")
-            u_v = cv2.getTrackbarPos("U - V","Trackbars")
 
             red_lower = np.array([160,70,10],np.uint8)
             red_upper = np.array([179,255,255],np.uint8)
@@ -68,7 +66,7 @@ class Camera:
                     
                     x,y,w,h = cv2.boundingRect(contour)
                     img = cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
-                    cv2.putText(img,"red party cup target",(x,y),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255))
+                    cv2.putText(img,"Red Target",(x,y),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
                     if w >= biggest & w < 640:
                         biggest = w
                         bc = x + w * .5
@@ -85,20 +83,21 @@ class Camera:
             cv2.imshow('mask',mask)
             cv2.imshow('res',res)
             if(w == biggest):
-                print("x = ", x, "y = ", y, "w = ", w, "h = ", h)
+                #print("x = ", x, "y = ", y, "w = ", w, "h = ", h)
                 bc =  x + .5 * w
-                print("center = ", bc)
+                #print("center = ", bc)
             
             if( bc == 0):
                 pass
-            elif (bc > center+2):
+            elif (bc >= center+0.5):
                 self.base.step_left(1)
-                print("left")
-            elif (bc < center-2):
+                #print("left")
+            elif (bc <= center-0.5):
                 self.base.step_right(1)
-                print("right")
+                #print("right")
             else:
                 print("--------CENTERED-------")
+                print("Current position: ", self.base.get_pos())
                 break
             
 
@@ -109,6 +108,4 @@ class Camera:
           
         return bc
 
-camera = Camera()
-camera.scan_cups()
 
