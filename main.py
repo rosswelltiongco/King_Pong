@@ -9,8 +9,8 @@ import serial
 #from lib.Base import*
 #from lib.Display import*
 from lib.Solenoid import*
-from lib.Camera import*
-from lib.Sensor import*
+#from lib.Camera import*
+#from lib.Sensor import*
 load = Solenoid(21)
 shoot = Solenoid(19)
 BUTTON = 36
@@ -18,15 +18,17 @@ GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 os.system("sudo modprobe bcm2835-v4l2")
 #camera = Camera()
-sensor = Sensor()
-#ser = serial.Serial ("/dev/ttyS0", 57600 )    #Open port with baud rate
-#ser = serial.Serial("/dev/ttyS0", 57600)    #Open port with baud rate
+#sensor = Sensor()
+
+ser = serial.Serial("/dev/ttyS0", 57600)    #Open port with baud rate
+
 
 dist_0 = 48
 dist_1 = 58
 dist_2 = 64
 dist_3 = 72
 dist_4 = 80
+
 def launch():
     # block off both solenoids
     load.block()
@@ -39,7 +41,7 @@ def launch():
     time.sleep(2)
     #load ball
     load.release()
-    time.sleep(.05)
+    time.sleep(.03)
     # close load
     load.block()
     time.sleep(2)
@@ -71,10 +73,7 @@ cups = {0: [ 20,57],
         9: [195,48]}
 """
 
-
-def main():
-    while 1:
-        """
+"""
         distance = sensor.get_distance()
         #print("  y = ", distance)
         
@@ -86,7 +85,7 @@ def main():
             print("reference2")
         elif (dist_3 < distance < dist_4):
             print("reference3")
-        """
+         
         push_button = GPIO.input(BUTTON)
         if push_button == True:
             print("Button pressed")
@@ -100,30 +99,39 @@ def main():
             #distance = sensor.get_distance()
             #print("  y = ", distance)
             #print("x = ", midpoint, "  y = ", distance)
+"""
+def main():
+    
+    while 1:
+        load.block()
+        temp = input('Enter: ')
         
+        ser.write(temp.encode())                  #transmit data serially
+        #Should print out "Bye!"
+        #time.sleep(10)
         
-        
-        
-        
+        #print("done. ready to launch")
+        while GPIO.input(BUTTON) == False:
+            pass
+        print("Button pressed")
+        #time.sleep(1)
+        # Collect the center of the cup, in x axis
+        # Collect the distance of the cup once aligned, in y axis
+        time.sleep(0.5)
+        launch()
+        print("Done") 
+            
     GPIO.cleanup()
 main()
 
+def shoot():
+    push_button = GPIO.input(BUTTON)
+    if push_button == True:
+        print("Button pressed")
+        #time.sleep(1)
+        # Collect the center of the cup, in x axis
+        # Collect the distance of the cup once aligned, in y axis
+        time.sleep(0.5)
+        launch()
+        print("Done")
 
-
-
-
-
-
-
-'''
-        while True:
-            ser.write(input('Enter'))                  #transmit data serially
-            #Should print out "Bye!"
-            #time.sleep(5)
-            received_data = ser.read()              #read serial port
-            time.sleep(1)
-            data_left = ser.inWaiting()             #check for remaining byte
-            received_data += ser.read(data_left)
-            print (received_data)      
-            time.sleep(0.1)
-'''
