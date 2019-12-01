@@ -19,7 +19,7 @@ class Camera:
     
     def __init__(self):
         self.base = Base()
-        self.base.step_left(174)
+        self.base.step_left(350)
         self.cap = cv2.VideoCapture(0)
     
     def scan_cups(self):
@@ -31,14 +31,16 @@ class Camera:
         center = 310
         bc=0
         while(1):
+            biggest =0
             _, img = self.cap.read()
             
             
             
             #converting frame(img i.e BGR) to HSV (hue-saturation-value)
-            biggest =0
+            
+            
             hsv=cv2.cvtColor(img,cv2.COLOR_BGR2HSV)
-            gray_scale = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+            #gray_scale = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
 
             red_lower = np.array([160,70,10],np.uint8)
@@ -53,7 +55,7 @@ class Camera:
             #Morphological transformation, Dilation     
             kernal = np.ones((5 ,5), "uint8")
 
-            red=cv2.dilate(red, kernal) + cv2.dilate(red2,kernal)
+            red=cv2.dilate(red, kernal) | cv2.dilate(red2,kernal)
             res=cv2.bitwise_and(img, img, mask = red)
             #Tracking the Red Color
             (_,contours,hierarchy)=cv2.findContours(red,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
@@ -66,14 +68,15 @@ class Camera:
                     
                     x,y,w,h = cv2.boundingRect(contour)
                     img = cv2.rectangle(img,(x,y),(x+w,y+h),(0,0,255),2)
-                    cv2.putText(img,"Red Target",(x,y),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
+                    
                     if w >= biggest & w < 640:
                         biggest = w
                         bc = x + w * .5
                         
             img = cv2.flip(img,flipCode = -1)
+            cv2.putText(img,"Red Target",(640-x,480-y),cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
             cv2.imshow("Color Tracking",img)
-            mask = cv2.inRange(hsv, red_lower, red_upper)  + cv2.inRange(hsv,red_l,red_u)
+            mask = cv2.inRange(hsv, red_lower, red_upper)  | cv2.inRange(hsv,red_l,red_u)
             
             mask = cv2.flip(mask,flipCode = -1)
             res = cv2.bitwise_and(img,img, mask= mask)
@@ -107,5 +110,3 @@ class Camera:
                 break
           
         return bc
-
-

@@ -8,19 +8,28 @@ import serial
 
 #from lib.Base import*
 #from lib.Display import*
+from lib.Solenoid import*
 from lib.Camera import*
 from lib.Sensor import*
-#from lib.Solenoid import*
+load = Solenoid(21)
+shoot = Solenoid(19)
+BUTTON = 36
+GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-camera = Camera()
+os.system("sudo modprobe bcm2835-v4l2")
+#camera = Camera()
 sensor = Sensor()
 #ser = serial.Serial ("/dev/ttyS0", 57600 )    #Open port with baud rate
-ser = serial.Serial("/dev/ttyS0", 57600)    #Open port with baud rate
+#ser = serial.Serial("/dev/ttyS0", 57600)    #Open port with baud rate
 
-
+dist_0 = 48
+dist_1 = 58
+dist_2 = 64
+dist_3 = 72
+dist_4 = 80
 def launch():
     # block off both solenoids
-    load.block
+    load.block()
     shoot.block()
     time.sleep(2)
     load.block()
@@ -28,13 +37,12 @@ def launch():
     #send_speed(cup)
     # allow for fan startup
     time.sleep(2)
-    ser.write(raw_input('enter'))                  #transmit data serially
     #load ball
     load.release()
-    time.sleep(.15)
+    time.sleep(.05)
     # close load
     load.block()
-    time.sleep(1)
+    time.sleep(2)
     # shoot ball
     shoot.release()
     time.sleep(2) # Follow through
@@ -66,18 +74,38 @@ cups = {0: [ 20,57],
 
 def main():
     while 1:
-        #time.sleep(1)
-        # Collect the center of the cup, in x axis
-        # Collect the distance of the cup once aligned, in y axis
-        midpoint = camera.scan_cups()
+        """
         distance = sensor.get_distance()
         #print("  y = ", distance)
-        print("x = ", midpoint, "  y = ", distance)
+        
+        if (dist_0 < distance < dist_1):
+            print("reference0")
+        elif (dist_1 < distance < dist_2):
+            print("reference1")
+        elif (dist_2 < distance < dist_3):
+            print("reference2")
+        elif (dist_3 < distance < dist_4):
+            print("reference3")
+        """
+        push_button = GPIO.input(BUTTON)
+        if push_button == True:
+            print("Button pressed")
+            #time.sleep(1)
+            # Collect the center of the cup, in x axis
+            # Collect the distance of the cup once aligned, in y axis
+            time.sleep(0.5)
+            launch()
+            print("Done")
+            #midpoint = camera.scan_cups()
+            #distance = sensor.get_distance()
+            #print("  y = ", distance)
+            #print("x = ", midpoint, "  y = ", distance)
         
         
         
         
-    GPIO.cleanup(), 
+        
+    GPIO.cleanup()
 main()
 
 

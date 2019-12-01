@@ -16,21 +16,19 @@ import time
 ser = serial.Serial("/dev/ttyS0", 57600)    #Open port with baud rate
     
 while True:
-    ser.write(raw_input('enter'))                  #transmit data serially
+    ser.write(raw_input('Enter: '))                  #transmit data serially
     #Should print out "Bye!"
-    #time.sleep(2)
-    #print("here")
+    time.sleep(15)
     """
+    #print("here")
     received_data = ser.read()              #read serial port
     time.sleep(1)
     data_left = ser.inWaiting()             #check for remaining byte
     received_data += ser.read(data_left)
     print (received_data)
     time.sleep(0.1)
-    """
     time.sleep(.5)
     received_data = ser.read()
     print (received_data)
     #time.sleep(0.5)
-    
-    
+    """
