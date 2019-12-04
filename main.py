@@ -6,19 +6,23 @@ import os
 import time
 import serial
 
-#from lib.Base import*
+from lib.Base import*
 #from lib.Display import*
 from lib.Solenoid import*
 #from lib.Camera import*
 #from lib.Sensor import*
-load = Solenoid(21)
-shoot = Solenoid(19)
-BUTTON = 36
-GPIO.setup(BUTTON, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-
+load      = Solenoid(21)
+shoot     = Solenoid(19)
+INPUT_PIN = 36
+GPIO.setup(INPUT_PIN, GPIO.IN)
+#Port 8 : RX green PB0
+#Port 10: TX yellow  PB1
+#serial0 - ttyAMA0
+#serial1 - ttyS0
 os.system("sudo modprobe bcm2835-v4l2")
 #camera = Camera()
 #sensor = Sensor()
+base    = Base()
 
 ser = serial.Serial("/dev/ttyS0", 57600)    #Open port with baud rate
 
@@ -61,7 +65,7 @@ def went_in(cup):
 
 """
 #     cup:  pos,pwm
-cups = {0: [ 20,57],
+cups = {0: [ 20,],
         1: [150,57],
         2: [260,57],
         3: [360,57],
@@ -71,23 +75,21 @@ cups = {0: [ 20,57],
         7: [150,50],
         8: [260,50],
         9: [195,48]}
-"""
 
-"""
+cups = {0: [bc-135 ,4],
+        1: [bc-45  ,4],
+        2: [bc+45  ,4],
+        3: [bc+135 ,4],
+        4: [bc-90  ,3],
+        5: [bc     ,3],
+        6: [bc+90  ,3],
+        7: [bc-45  ,1],
+        8: [bc+45  ,1],
+        9: [bc     ,0]}
         distance = sensor.get_distance()
         #print("  y = ", distance)
-        
-        if (dist_0 < distance < dist_1):
-            print("reference0")
-        elif (dist_1 < distance < dist_2):
-            print("reference1")
-        elif (dist_2 < distance < dist_3):
-            print("reference2")
-        elif (dist_3 < distance < dist_4):
-            print("reference3")
-         
-        push_button = GPIO.input(BUTTON)
-        if push_button == True:
+
+        if GPIO.input(INPUT_PIN) == True:
             print("Button pressed")
             #time.sleep(1)
             # Collect the center of the cup, in x axis
@@ -100,38 +102,47 @@ cups = {0: [ 20,57],
             #print("  y = ", distance)
             #print("x = ", midpoint, "  y = ", distance)
 """
+bc = 197
+base.step_left(bc)
+
+cups = {0: [bc-180 ,4],
+        1: [bc-45  ,4],
+        2: [bc+45  ,4],
+        3: [bc+135 ,4],
+        4: [bc-90  ,3],
+        5: [bc     ,3],
+        6: [bc+90  ,3],
+        7: [bc-45  ,1],
+        8: [bc+45  ,1],
+        9: [bc     ,0]}
+
 def main():
     
     while 1:
-        load.block()
-        temp = input('Enter: ')
+        #bc = camera.scan()
+        #load.block()
+        temp = int(input())
+        print(temp)
+        #temp = str(cups[0][0]) # should be 4
+        base.go_to(cups[temp][0])
+        #print(temp)
+        #ser.write(temp)  
         
-        ser.write(temp.encode())                  #transmit data serially
+        #temp = input('Enter: ')
+        
+        #ser.write(temp.encode())                  #transmit data serially
+
         #Should print out "Bye!"
-        #time.sleep(10)
+        #while GPIO.input(INPUT_PIN) == False:
+         #   print("waiting for TM4C")
         
-        #print("done. ready to launch")
-        while GPIO.input(BUTTON) == False:
-            pass
-        print("Button pressed")
         #time.sleep(1)
         # Collect the center of the cup, in x axis
         # Collect the distance of the cup once aligned, in y axis
-        time.sleep(0.5)
-        launch()
-        print("Done") 
-            
+        #time.sleep(0.5)
+        #launch()
+        #print("Done")
+
     GPIO.cleanup()
 main()
-
-def shoot():
-    push_button = GPIO.input(BUTTON)
-    if push_button == True:
-        print("Button pressed")
-        #time.sleep(1)
-        # Collect the center of the cup, in x axis
-        # Collect the distance of the cup once aligned, in y axis
-        time.sleep(0.5)
-        launch()
-        print("Done")
 

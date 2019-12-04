@@ -118,4 +118,3 @@ class Base:
         else:
             while self.pos > target:
                 self.step_right(1)
-
