@@ -1,6 +1,6 @@
 # King_Pong
 
-At a glance
+At a glance documentation
 https://docs.google.com/presentation/d/1focAoxGeQMFsratQcroHs-3SYvZRtXsR_4TNo3WXqvA/edit?usp=sharing
 
 Full documentation
