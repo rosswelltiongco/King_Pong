@@ -1,9 +1,7 @@
 # King_Pong
 
-cd ~/King_Pong
+At a glance
+https://docs.google.com/presentation/d/1focAoxGeQMFsratQcroHs-3SYvZRtXsR_4TNo3WXqvA/edit?usp=sharing
 
-#test Demo1
-sudo python Demo1.py
-
-#test Demo2
-sudo python Demo2.py
+Full documentation
+https://docs.google.com/document/d/1WzjXbKzYB_CcRZPZ37ah6KH73L7C-Mfm-z35e2O4DXc/edit?usp=sharing
